@@ -2,7 +2,7 @@
 set -eu
 
 cd "$(dirname "$0")/.."
-rm -rf _site
-mkdir _site
-cp web/index.html web/styles.css _site/
-cp -R assets _site/assets
+rm -rf dist
+mkdir dist
+cp web/index.html web/styles.css dist/
+cp -R assets dist/assets

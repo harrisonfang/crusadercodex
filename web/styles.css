@@ -1,8 +1,6 @@
 :root {
   color-scheme: dark;
   background: #24272b;
-  --book-width: 499px;
-  --book-height: 370px;
 }
 
 body {
@@ -13,27 +11,15 @@ body {
   box-sizing: border-box;
   display: grid;
   place-items: center;
-  min-width: calc(var(--book-width) + 32px);
+  min-width: 531px;
   min-height: 100vh;
   min-height: 100svh;
   padding: 16px;
 }
 
-.book,
-.book img {
+.book {
   display: block;
-  width: var(--book-width);
-  height: var(--book-height);
-}
-
-.book img {
+  width: 499px;
+  height: 370px;
   image-rendering: pixelated;
-}
-
-/* Use 2x only when both dimensions fit with 16px around the book. */
-@media (min-width: 1030px) and (min-height: 772px) {
-  :root {
-    --book-width: 998px;
-    --book-height: 740px;
-  }
 }
