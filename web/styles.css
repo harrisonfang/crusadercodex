@@ -1,0 +1,25 @@
+:root {
+  color-scheme: dark;
+  background: #24272b;
+}
+
+body {
+  margin: 0;
+}
+
+.book-stage {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  min-width: 531px;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 16px;
+}
+
+.book {
+  display: block;
+  width: 499px;
+  height: 370px;
+  image-rendering: pixelated;
+}
