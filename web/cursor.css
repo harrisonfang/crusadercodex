@@ -1,0 +1,6 @@
+@media (any-hover: hover) and (any-pointer: fine) {
+  html[data-maple-cursor],
+  html[data-maple-cursor] * {
+    cursor: var(--maple-cursor) !important;
+  }
+}
