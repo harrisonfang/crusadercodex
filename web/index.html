@@ -6,16 +6,21 @@
     <meta name="description" content="A Codex pet gallery inspired by MapleStory's Crusader Codex.">
     <title>Crusader Codex</title>
     <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./book.js"></script>
   </head>
   <body>
     <main class="book-stage" aria-label="Crusader Codex">
-      <img
-        class="book"
-        src="./assets/gms-v102/book.png"
-        width="499"
-        height="370"
-        alt="An open Crusader Codex with two empty pages."
-        fetchpriority="high">
+      <div class="codex-book">
+        <img
+          class="book"
+          src="./assets/gms-v102/book.png"
+          width="499"
+          height="370"
+          alt="An open Crusader Codex with two empty pages."
+          fetchpriority="high">
+        <div class="chapter-tabs" role="tablist" aria-label="Book chapters" aria-orientation="vertical"></div>
+        <section class="book-pages" id="book-pages" role="tabpanel" tabindex="0"></section>
+      </div>
     </main>
   </body>
 </html>

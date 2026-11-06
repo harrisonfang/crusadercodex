@@ -23,3 +23,75 @@ body {
   height: 370px;
   image-rendering: pixelated;
 }
+
+.codex-book {
+  position: relative;
+  width: 499px;
+  height: 370px;
+  flex: none;
+}
+
+.chapter-tab {
+  position: absolute;
+  top: calc(12px + var(--chapter-index) * 30px);
+  /* GMS v102 screenshot placement includes a 3px client offset. */
+  left: 468px;
+  width: 31px;
+  height: 31px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.chapter-tab img {
+  position: absolute;
+  top: 0;
+  left: 9px;
+  width: 22px;
+  height: 31px;
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
+}
+
+.chapter-tab .tab-hover,
+.chapter-tab .tab-selected {
+  display: none;
+}
+
+.chapter-tab:hover .tab-normal {
+  display: none;
+}
+
+.chapter-tab:hover .tab-hover {
+  display: block;
+}
+
+.chapter-tab[aria-selected="true"] .tab-normal,
+.chapter-tab[aria-selected="true"] .tab-hover {
+  display: none;
+}
+
+.chapter-tab[aria-selected="true"] .tab-selected {
+  display: block;
+  left: 0;
+  width: 28px;
+  clip-path: inset(0 0 0 3px);
+}
+
+.chapter-tab:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  z-index: 2;
+}
+
+.book-pages {
+  position: absolute;
+  inset: 32px 45px 56px;
+}
+
+.book-pages:focus-visible {
+  outline: 2px solid #625437;
+  outline-offset: 2px;
+}
