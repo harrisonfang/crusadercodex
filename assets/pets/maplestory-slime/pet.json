@@ -1,0 +1,7 @@
+{
+  "id": "maplestory-slime",
+  "displayName": "MapleStory Slime",
+  "description": "A monster made of a gelatinous substance that uses its own viscosity to jump around everywhere.",
+  "spriteVersionNumber": 1,
+  "spritesheetPath": "spritesheet.png"
+}
