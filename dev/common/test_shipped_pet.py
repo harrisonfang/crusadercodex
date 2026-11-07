@@ -20,9 +20,9 @@ def pixel_digest(image):
 class ShippedPetTest(unittest.TestCase):
     def test_recipes_match_published_pets(self):
         authoring = Path(__file__).resolve().parents[1]
-        published = authoring.parents[1] / "assets" / "pets"
+        published = authoring.parent / "assets" / "pets"
         matched = 0
-        for recipe in sorted((authoring / "recipes").glob("*/recipe.json")):
+        for recipe in sorted(authoring.glob("*/recipe.json")):
             pet_id = json.loads(recipe.read_text())["pet"]["id"]
             shipped = published / pet_id
             if not shipped.exists():  # A draft recipe need not have install files yet.

@@ -1,6 +1,6 @@
 """Focused checks for retimed motion and lossless-alpha sprite composition.
 
-Run with a Pillow-enabled Python: python -m unittest discover -s dev/pets/tools -p 'test_*.py'
+Run with a Pillow-enabled Python: python -m unittest discover -s dev/common -p 'test_*.py'
 """
 
 import json

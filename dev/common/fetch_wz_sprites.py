@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """Fetch lossless MapleStory WZ frame canvases with origins and explicit delays.
 
-Usage: python3 dev/pets/tools/fetch_wz_sprites.py dev/pets/recipes/maplestory-slime/fetch-effects.json
+Usage: python3 dev/common/fetch_wz_sprites.py dev/maplestory-slime/fetch-slime.json
 Requires curl; decoding/downloads use only the Python standard library.
 Existing cached HTTP responses are reused unless --refresh is passed.
 """
 import argparse
 import base64
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -23,10 +22,10 @@ def main():
     parser.add_argument("--refresh", action="store_true")
     args = parser.parse_args()
     config = json.loads(args.config.read_text())
-    out = (args.config.resolve().parent / config["output"]).resolve()
-    out.mkdir(parents=True, exist_ok=True)
-    cache = out / "raw"
-    cache.mkdir(exist_ok=True)
+    base_dir = args.config.resolve().parent
+    out = (base_dir / config["output"]).resolve()
+    cache = (base_dir / config.get("cache", "build/wz-cache")).resolve()
+    cache.mkdir(parents=True, exist_ok=True)
     base = "https://maplestory.io/api/wz/" + quote(config["region"], safe="") + "/" + quote(config["version"], safe="") + "/"
 
     def fetch(path):
@@ -49,18 +48,17 @@ def main():
         if png[:8] != b"\x89PNG\r\n\x1a\n":
             raise ValueError(f"{path}: invalid PNG signature")
         width, height = struct.unpack(">II", png[16:24])
-        props = {key: fetch(path + "/" + key).get("value") for key in node["children"]}
+        props = {key: fetch(path + "/" + key).get("value") for key in sorted(node["children"])}
         origin = props.get("origin")
         if not isinstance(origin, dict) or not {"x", "y"} <= origin.keys():
             raise ValueError(f"{path}: explicit origin required")
         target = out / "frames" / name / f"{index}.png"
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(png)
-        return name, {
-            "index": index, "file": str(target.relative_to(out)),
+        delay = props.get("delay")
+        return name, png, {
+            "index": index, "file": target.relative_to(out).as_posix(),
             "width": width, "height": height,
             "origin": {"x": origin["x"], "y": origin["y"]},
-            "delay_ms": props.get("delay"),
+            "delay_ms": int(delay) if delay is not None else None,
             "delay_status": "explicit_wz" if "delay" in props else "absent_in_wz",
             "properties": props, "wz_path": path, "source_url": base + quote(path, safe="/"),
             "sha256": hashlib.sha256(png).hexdigest(),
@@ -74,11 +72,16 @@ def main():
         animations[name] = {"wz_path": path, "frames": []}
         jobs.extend((name, path, index) for index in ids)
     with ThreadPoolExecutor(max_workers=4) as pool:
-        for name, data in pool.map(frame, jobs):
-            animations[name]["frames"].append(data)
+        frames = list(pool.map(frame, jobs))
+    # Finish the archive requests before updating the shared source files.
+    for name, png, data in frames:
+        target = out / data["file"]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(png)
+        animations[name]["frames"].append(data)
     manifest = {
-        "source": {"provider": "maplestory.io", "region": config["region"], "version": config["version"],
-                   "retrieved_at": datetime.now(timezone.utc).isoformat(), "base_url": base,
+        "source": {"game": "MapleStory", "provider": "MapleStory.IO", "region": config["region"], "version": config["version"],
+                   "base_url": base,
                    "art_owner": "Nexon / Wizet", "method": "Base64 PNG canvases decoded without pixel edits; original WZ properties retained."},
         "animations": animations,
         "notes": ["A null delay_ms means the WZ frame does not specify a delay. No game-client fallback timing has been assumed."],

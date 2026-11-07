@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compile original game frames into a Codex v1 pet, without repainting pixels.
 
-Usage: python3 dev/pets/tools/build_pet.py dev/pets/recipes/maplestory-slime/recipe.json
+Usage: python3 dev/common/build_pet.py dev/maplestory-slime/recipe.json
 Dependency: Pillow. Paths in a config are relative to that config; paths in a
 source manifest are relative to that manifest. The runtime profile is a separate
 input so updated Codex timings and future game assets do not require code edits.
@@ -303,7 +303,7 @@ def build(config_path: Path, output_override: Path | None = None) -> Path:
         "runtime_profile_sha256": digest(profile_path), "runtime": profile,
         "timing_policy": "Explicit source frame maps retimed to fixed Codex runtime durations. Source delays are preserved as provenance, never treated as target delays.",
         "image_policy": "Original RGBA sprites; integer nearest-neighbor scaling, optional exact horizontal reflection, original origins, and alpha compositing only.",
-        "sources": {name: {"manifest": str(value["path"].relative_to(base.parent)) if value["path"].is_relative_to(base.parent) else str(value["path"]), "manifest_sha256": digest(value["path"]), "source": value["data"]["source"]} for name, value in sources.items()},
+        "sources": {name: {"manifest": config["sources"][name], "manifest_sha256": digest(value["path"]), "source": value["data"]["source"]} for name, value in sources.items()},
         "rows": [],
     }
     if mapping_path:

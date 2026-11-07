@@ -1,0 +1,141 @@
+{
+  "source": {
+    "game": "MapleStory",
+    "provider": "MapleStory.IO",
+    "region": "GMS",
+    "version": "83",
+    "base_url": "https://maplestory.io/api/wz/GMS/83/",
+    "art_owner": "Nexon / Wizet",
+    "method": "Base64 PNG canvases decoded without pixel edits; original WZ properties retained."
+  },
+  "animations": {
+    "magic_claw_hit": {
+      "wz_path": "Skill/200.img/skill/2001005/hit/0",
+      "frames": [
+        {
+          "index": 0,
+          "file": "frames/magic_claw_hit/0.png",
+          "width": 78,
+          "height": 72,
+          "origin": {
+            "x": 39,
+            "y": 36
+          },
+          "delay_ms": 120,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": 120,
+            "origin": {
+              "x": 39,
+              "y": 36,
+              "isEmpty": false
+            },
+            "z": 0
+          },
+          "wz_path": "Skill/200.img/skill/2001005/hit/0/0",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Skill/200.img/skill/2001005/hit/0/0",
+          "sha256": "37e939b3163f08f88f4587ef2d1f5d6f9ac447191efdbb12088b0f678488c29d"
+        },
+        {
+          "index": 1,
+          "file": "frames/magic_claw_hit/1.png",
+          "width": 77,
+          "height": 78,
+          "origin": {
+            "x": 48,
+            "y": 32
+          },
+          "delay_ms": 90,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": 90,
+            "origin": {
+              "x": 48,
+              "y": 32,
+              "isEmpty": false
+            },
+            "z": 0
+          },
+          "wz_path": "Skill/200.img/skill/2001005/hit/0/1",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Skill/200.img/skill/2001005/hit/0/1",
+          "sha256": "8f1463043898fa566fdafd63e59d885aab701d1f949a8c6881e752922bd7865e"
+        },
+        {
+          "index": 2,
+          "file": "frames/magic_claw_hit/2.png",
+          "width": 83,
+          "height": 94,
+          "origin": {
+            "x": 55,
+            "y": 49
+          },
+          "delay_ms": 120,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": 120,
+            "origin": {
+              "x": 55,
+              "y": 49,
+              "isEmpty": false
+            },
+            "z": 0
+          },
+          "wz_path": "Skill/200.img/skill/2001005/hit/0/2",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Skill/200.img/skill/2001005/hit/0/2",
+          "sha256": "78493c30192ced382faca86b7e90f6ae7c4cca19e6385d39debb5954951edf06"
+        },
+        {
+          "index": 3,
+          "file": "frames/magic_claw_hit/3.png",
+          "width": 77,
+          "height": 78,
+          "origin": {
+            "x": 42,
+            "y": 43
+          },
+          "delay_ms": 90,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": 90,
+            "origin": {
+              "x": 42,
+              "y": 43,
+              "isEmpty": false
+            },
+            "z": 0
+          },
+          "wz_path": "Skill/200.img/skill/2001005/hit/0/3",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Skill/200.img/skill/2001005/hit/0/3",
+          "sha256": "827009642bc863416cdfd32a5632c8c91cca3ffe953ea4eb50e2fe6df9d32fb0"
+        },
+        {
+          "index": 4,
+          "file": "frames/magic_claw_hit/4.png",
+          "width": 77,
+          "height": 78,
+          "origin": {
+            "x": 31,
+            "y": 34
+          },
+          "delay_ms": 150,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": 150,
+            "origin": {
+              "x": 31,
+              "y": 34,
+              "isEmpty": false
+            },
+            "z": 0
+          },
+          "wz_path": "Skill/200.img/skill/2001005/hit/0/4",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Skill/200.img/skill/2001005/hit/0/4",
+          "sha256": "f8bf32a604842cc366fe4fe1cc86e79eb45a5c54dff702ad53d6e46cb7c9a957"
+        }
+      ]
+    }
+  },
+  "notes": [
+    "A null delay_ms means the WZ frame does not specify a delay. No game-client fallback timing has been assumed."
+  ]
+}

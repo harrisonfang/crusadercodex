@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "runtime_profile": "../../timing-profile.json",
-  "output": "../../build/maplestory-slime",
+  "runtime_profile": "../common/timing-profile.json",
+  "output": "build",
   "pet": {
     "id": "maplestory-slime",
     "displayName": "MapleStory Slime",
@@ -10,8 +10,9 @@
     "spritesheetPath": "spritesheet.png"
   },
   "sources": {
-    "slime": "sources/slime/animations.json",
-    "effects": "sources/effects/animations.json"
+    "slime": "../../assets/slime/animations.json",
+    "meso": "../../assets/meso/animations.json",
+    "magic_claw": "../../assets/magic-claw/animations.json"
   },
   "defaults": {
     "source": "slime",
@@ -71,7 +72,7 @@
           "opacities": [1, 1, 1, 1, 1, 0.6666666666666666, 0.3333333333333333, 0]
         },
         {
-          "source": "effects",
+          "source": "meso",
           "animation": "meso_bronze",
           "anchor": [63, 204],
           "frames": [null, null, 0, 1, 2, 3, 0, 1],
@@ -120,7 +121,7 @@
           }
         },
         {
-          "source": "effects",
+          "source": "magic_claw",
           "animation": "magic_claw_hit",
           "anchor": [105, 116],
           "frames": [0, 1, 2, 3, 4, null],

@@ -1,7 +1,8 @@
 {
   "region": "GMS",
   "version": "83",
-  "output": "../../build/fetched/maplestory-slime/slime",
+  "output": "../../assets/slime",
+  "cache": "build/wz-cache",
   "animations": {
     "stand": "Mob/0210100.img/stand",
     "move": "Mob/0210100.img/move",
