@@ -1,0 +1,9 @@
+{
+  "region": "GMS",
+  "version": "83",
+  "output": "../../assets/meso",
+  "cache": "build/wz-cache",
+  "animations": {
+    "meso_bronze": "Item/Special/0900.img/09000000/iconRaw"
+  }
+}

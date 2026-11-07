@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__PET_TITLE__ · Animation preview</title>
+<style>
+  :root{color-scheme:light dark;--surface:#fff;--border:#cbd7d1;--muted-foreground:#495e54;--red:#d22441;--bg:#f4f6f2;color:#193b30;background:var(--bg);font:16px/1.5 system-ui,sans-serif;scrollbar-gutter:stable}
+  @media(prefers-color-scheme:dark){:root{--surface:#1a2722;--border:#42594b;--muted-foreground:#bed1c6;--red:#ff4562;--bg:#131d19;color:#eaf4ed}}
+  *{box-sizing:border-box}
+  body{margin:0}
+  main{max-width:1440px;margin:auto;padding:clamp(16px,3vw,48px)}
+  h1{font-size:clamp(1.5rem,4vw,2.25rem);line-height:1.2;margin:0 0 20px}
+  h2{font-size:1.15rem;margin:0 0 8px}
+  figure{padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+  select,button{font:inherit;color:inherit;border-radius:6px;border:1px solid var(--border);padding:4px 8px;background:var(--surface)}
+  select{display:block;width:100%;max-width:100%}
+  button{cursor:pointer}
+  button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+  .text-small,.form-label,.form-check,button,select{font-size:.85rem}
+  .form-label{display:block}
+  .text-muted{color:var(--muted-foreground)}
+  .tabular-nums,.state-slot{font-variant-numeric:tabular-nums}
+  .form-check{display:flex;align-items:center;gap:5px}
+  .preview-toolbar{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+  .preview-toolbar>label{flex:1;min-width:180px}
+  .state-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--state-min-width,210px)),1fr));gap:28px 20px;margin-top:20px}
+  figure{margin:0;min-width:0}
+  .state-stage{display:flex;align-items:center;justify-content:center;position:relative;margin:8px 0}
+  canvas{image-rendering:pixelated;max-width:100%;object-fit:contain}
+  .state-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .state-sequence{overflow-wrap:anywhere;margin:8px 0}
+  .state-clipping{margin-top:8px;overflow-wrap:anywhere}
+  .stable-status{display:grid;grid-template-columns:minmax(0,1fr);overflow-wrap:anywhere}
+  .stable-status>span{grid-area:1/1;min-width:0}
+  .stable-status .status-sizer{visibility:hidden;pointer-events:none;user-select:none}
+  .state-assignment{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+  .state-assignment label{min-width:0}
+  .state-assignment.is-composed{grid-template-columns:1fr}
+  .state-slot{padding:8px;border:1px solid var(--border,#dce3d8);border-radius:8px}
+  .state-slot[aria-current=true]{border-color:currentColor}
+  .state-layer{margin-top:6px;line-height:1.5;overflow-wrap:anywhere}
+  details{margin-top:10px}
+  summary{cursor:pointer}
+  .state-ended{position:absolute;text-align:center;color:var(--muted-foreground);max-width:180px}
+  [hidden]{display:none}
+  @media(max-width:480px){.state-gallery{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<main>
+  <h1>__PET_TITLE__</h1>
+  <div class="preview-toolbar">
+    <label class="form-label">Playback speed<select class="form-select" data-control="speed" aria-label="Playback speed"><option value="1">1× · actual Codex frame timing</option><option value="0.5">½× · slow inspection</option><option value="0.25">¼× · slow inspection</option></select></label>
+    <label class="form-label">Playback behavior<select class="form-select" data-control="mode" aria-label="Playback behavior"><option value="comparison">Loop each state for comparison</option><option value="runtime">Stop at Codex's return to idle</option></select></label>
+  </div>
+  <div class="text-small" data-output="notice" role="status" aria-live="polite"></div>
+  <div class="state-gallery" data-output="gallery"></div>
+  <script type="application/json" data-source-data>__SOURCE_PREVIEW_DATA__</script>
+  <script>
+  (() => {
+    const root = document.querySelector('main');
+    const data = JSON.parse(root.querySelector('[data-source-data]').textContent);
+    const controls = Object.fromEntries([...root.querySelectorAll('[data-control]')].map(el => [el.dataset.control, el]));
+    const output = Object.fromEntries([...root.querySelectorAll('[data-output]')].map(el => [el.dataset.output, el]));
+    const rows = data.profile.rows, sources = data.animations;
+    const original = new Map(), expanded = new Map(), cards = new Map();
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const repeatCount = data.profile.non_idle_repeat_count;
+    const endMessage = repeatCount+' cycles complete. Codex returns to idle.';
+    let speed = 1, mode = 'comparison';
+    // Full atlas cells keep their original pixels, including odd-pixel motion offsets.
+    const rasterScale = Math.max(1,...sources.map(source => source.pixel_scale || 1));
+    // Shared origins and symmetric bounds preserve motion and allow unclipped mirroring.
+    const bounds = sources.flatMap(source => source.frames.map(frame => {
+      const scale=source.pixel_scale || 1, full=frame.uncropped;
+      const left=-frame.origin.x-(full?.cell_offset[0] || 0)/scale;
+      const top=-frame.origin.y-(full?.cell_offset[1] || 0)/scale;
+      return {left,top,right:left+(full?full.size[0]/scale:frame.width),bottom:top+(full?full.size[1]/scale:frame.height)};
+    }));
+    const anchorX = Math.ceil(Math.max(...bounds.flatMap(bound => [-bound.left,bound.right])))+4;
+    const anchorY = Math.ceil(Math.max(...bounds.map(bound => -bound.top)))+4;
+    const width = anchorX*2, height = anchorY+Math.ceil(Math.max(...bounds.map(bound => bound.bottom)))+4;
+    root.style.setProperty('--state-min-width',Math.ceil(width*rasterScale+16)+'px');
+    const defaultMap = (count, slots) => Array.from({length:slots}, (_,i) => Math.round(i*(count-1)/Math.max(1,slots-1)));
+    function clippingSummary(frame) {
+      const clipped=(frame.layers || []).filter(layer => layer.clipping?.lost_pixels>0);
+      if (!clipped.length) return '';
+      const edges=['left','top','right','bottom'].map(edge => {
+        const pixels=Math.max(...clipped.map(layer=>layer.clipping.overflow[edge] || 0));
+        return pixels?pixels+' px '+edge:'';
+      }).filter(Boolean).join(', ');
+      const lost=clipped.reduce((sum,layer)=>sum+layer.clipping.lost_pixels,0);
+      return edges+' · '+lost+' visible layer pixels cut off';
+    }
+    function element(tag, className, text) {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      if (text) el.textContent = text;
+      return el;
+    }
+    function button(text, label, action) {
+      const el = element('button','btn',text); el.type = 'button';
+      el.setAttribute('aria-label',label); el.onclick = action; return el;
+    }
+    // Overlapping invisible copies reserve the tallest wrapped message at any width.
+    // Frame changes then update text without resizing the card while playback advances.
+    function reserveStatus(status, messages) {
+      const sizes=[...new Set(messages)].filter(Boolean).map(message=>{
+        const size=element('span','status-sizer',message);size.setAttribute('aria-hidden','true');return size;
+      });
+      status.replaceChildren(status.firstElementChild,...sizes);
+    }
+    // Resolve theme functions such as light-dark() through a real CSS color property;
+    // canvas does not reliably accept the raw value of a custom property.
+    const colorProbes=Object.fromEntries(Object.entries({
+      highlight:'var(--red, var(--destructive, currentColor))',
+      outline:'var(--muted-foreground, currentColor)'
+    }).map(([name,token])=>{
+      const probe=element('span');probe.hidden=true;probe.setAttribute('aria-hidden','true');
+      probe.style.color=token;root.append(probe);return [name,probe];
+    }));
+    let palette={};
+    function refreshPalette() {
+      const next=Object.fromEntries(Object.entries(colorProbes).map(([name,probe])=>[name,getComputedStyle(probe).color]));
+      if (Object.keys(next).some(name=>next[name]!==palette[name])) {
+        palette=next;cards.forEach(card=>card.render());
+      }
+    }
+    refreshPalette();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',refreshPalette);
+    class StatePreview {
+      constructor(row) {
+        this.row = row;
+        this.loadDefaults();
+        this.slot = 0; this.cycle = 0; this.ended = false; this.playing = !reduced.matches;
+        this.timer = null; this.remainingMs = null; this.scheduledAt = 0; this.scheduledSpeed = 1;
+        this.figure = element('figure'); this.figure.dataset.state = row.name;
+        const heading = element('h2','',row.name);
+        const sourceLabel = element('label','form-label text-small','Animation source');
+        this.select = element('select','form-select'); this.select.dataset.control = 'source';
+        this.select.setAttribute('aria-label',row.name+' source animation');
+        sources.filter(source => !source.state || source.state===row.name).forEach(source => {
+          const option = element('option','',source.label+(source.composed?' · built cells':''));
+          option.value = source.name; this.select.append(option);
+        });
+        this.select.value = this.sourceName;
+        this.select.onchange = () => {
+          this.sourceName = this.select.value; this.reset(); this.renderAssignments(); this.render(); this.schedule();
+        };
+        sourceLabel.append(this.select);
+        const stage = element('div','state-stage');
+        this.canvas = element('canvas'); this.canvas.width = width*rasterScale; this.canvas.height = height*rasterScale;
+        this.canvas.style.width = width*rasterScale+'px'; this.canvas.style.height = height*rasterScale+'px';
+        this.canvas.setAttribute('role','img');
+        this.ctx = this.canvas.getContext('2d'); this.ctx.imageSmoothingEnabled = false;
+        this.endLabel = element('div','state-ended text-small','→ idle transition'); this.endLabel.hidden = true;
+        stage.append(this.canvas,this.endLabel);
+        const actions = element('div','state-actions');
+        this.playButton = button('Pause','Pause '+row.name,()=>this.toggle()); this.playButton.dataset.control = 'play';
+        const previous = button('← Frame','Previous '+row.name+' frame',()=>this.seek((this.slot+row.frames-1)%row.frames));
+        const next = button('Frame →','Next '+row.name+' frame',()=>this.seek((this.slot+1)%row.frames));
+        previous.dataset.control='previous'; next.dataset.control='next'; actions.append(this.playButton,previous,next);
+        const resetEdits = button('Reset','Reset '+row.name+' to saved defaults',()=>this.resetEdits());
+        resetEdits.dataset.control='reset'; actions.append(resetEdits);
+        const details = element('details'); details.dataset.control = 'details';
+        details.append(element('summary','text-small','Frames & timing'));
+        this.current = element('div','stable-status text-small tabular-nums'); this.current.dataset.output = 'current';
+        this.currentText=element('span');this.current.append(this.currentText);
+        this.note = element('div','text-small text-muted');
+        this.clipControl = element('label','form-check'); this.clipControl.hidden=true;
+        this.clipInput = element('input','form-check-input'); this.clipInput.type='checkbox'; this.clipInput.checked=true;
+        this.clipInput.dataset.control='clipping'; this.clipInput.setAttribute('aria-label',row.name+' show clipped artwork');
+        this.clipInput.onchange=()=>this.render();
+        this.clipControl.append(this.clipInput,element('span','form-check-label','Show clipped artwork'));
+        this.clipStatus = element('div','stable-status state-clipping text-small'); this.clipStatus.dataset.output='clipping';
+        this.clipText=element('span');this.clipStatus.append(this.clipText);
+        this.clipLegend = element('div','text-small text-muted');
+        this.sequence = element('div','state-sequence text-small');
+        this.adaptation = element('div','text-small text-muted');
+        const mirrorLabel = element('label','form-check');
+        this.mirrorInput = element('input','form-check-input'); this.mirrorInput.type = 'checkbox'; this.mirrorInput.checked = this.mirror;
+        this.mirrorInput.setAttribute('aria-label',row.name+' mirror horizontally');
+        this.mirrorInput.onchange = () => {this.mirror=this.mirrorInput.checked;this.render();};
+        mirrorLabel.append(this.mirrorInput,element('span','form-check-label','Mirror horizontally'));
+        this.assignments = element('div','state-assignment');
+        details.append(this.current,this.sequence,this.adaptation,mirrorLabel,this.assignments);
+        this.figure.append(heading,sourceLabel,stage,actions,this.clipControl,this.clipStatus,this.clipLegend,this.note,details); output.gallery.append(this.figure);
+        this.renderAssignments(); this.render(); this.schedule();
+      }
+      loadDefaults() {
+        const choice = data.defaults[this.row.name];
+        const originalChoice = (typeof choice === 'string' ? choice : choice?.source) || sources[0].name;
+        this.sourceName = data.compiled_defaults?.[this.row.name] || originalChoice;
+        this.mirror = typeof choice === 'object' && Boolean(choice.mirror);
+        // Fresh arrays keep trial edits from changing the saved mapping, even after repeated resets.
+        this.choices = new Map();
+        if (typeof choice === 'object' && Array.isArray(choice.frames)) this.choices.set(originalChoice,[...choice.frames]);
+      }
+      resetEdits() {
+        this.reset(); this.loadDefaults();
+        this.select.value=this.sourceName; this.clipInput.checked=true;
+        this.renderAssignments(); this.render(); this.schedule();
+      }
+      get source() {return sources.find(source => source.name===this.sourceName);}
+      get mapping() {
+        if (this.source.composed) return Array.from({length:this.row.frames},(_,i)=>i);
+        if (!this.choices.has(this.sourceName)) this.choices.set(this.sourceName,defaultMap(this.source.frames.length,this.row.frames));
+        return this.choices.get(this.sourceName);
+      }
+      stopTimer(preserve=true) {
+        if (this.timer!==null) {
+          if (preserve) this.remainingMs=Math.max(0,this.remainingMs-(performance.now()-this.scheduledAt)*this.scheduledSpeed);
+          clearTimeout(this.timer);
+        }
+        this.timer=null;
+        if (!preserve) this.remainingMs=null;
+      }
+      schedule() {
+        this.stopTimer();
+        if (!this.playing || this.ended) return;
+        if (this.remainingMs===null) this.remainingMs=this.row.delays_ms[this.slot];
+        this.scheduledAt=performance.now(); this.scheduledSpeed=speed;
+        this.timer=setTimeout(()=>{this.timer=null;this.remainingMs=null;this.advance();},this.remainingMs/speed);
+      }
+      advance() {
+        this.slot+=1;
+        if (this.slot>=this.row.frames) {
+          this.slot=0; this.cycle+=1;
+          if (mode==='runtime' && this.row.name!=='idle' && this.cycle>=repeatCount) {
+            this.ended=true; this.playing=false;
+          }
+        }
+        this.render(); this.schedule();
+      }
+      reset() {this.stopTimer(false);this.slot=0;this.cycle=0;this.ended=false;}
+      toggle() {
+        if (this.ended) this.reset();
+        this.playing=!this.playing; this.render(); this.schedule();
+      }
+      seek(slot) {
+        this.reset();this.slot=slot;this.playing=false;this.render();
+      }
+      currentMessage(slot) {
+        return 'Codex frame '+(slot+1)+' / '+this.row.frames+' · '+this.row.delays_ms[slot]+' ms hold · '+(this.source.composed?'Composed slot ':'Source frame ')+(this.mapping[slot]+1)+' / '+this.source.frames.length;
+      }
+      clippingMessage(slot) {
+        return 'Frame '+(slot+1)+': '+(clippingSummary(this.source.frames[this.mapping[slot]]) || 'No artwork cut off.');
+      }
+      renderAssignments() {
+        const mapping=this.mapping, source=this.source;
+        this.mirrorInput.disabled=Boolean(source.composed);
+        this.mirrorInput.checked=source.composed?false:this.mirror;
+        this.assignments.classList.toggle('is-composed',Boolean(source.composed));
+        this.note.textContent=source.note;
+        const clippedSlots=source.frames.map((frame,index)=>clippingSummary(frame)?index+1:null).filter(index=>index!==null);
+        this.clipControl.hidden=!source.frames.some(frame=>frame.uncropped);
+        this.clipStatus.hidden=this.clipControl.hidden;
+        reserveStatus(this.current,[...mapping.map((_,slot)=>this.currentMessage(slot)),endMessage]);
+        reserveStatus(this.clipStatus,this.clipControl.hidden?[]:mapping.map((_,slot)=>this.clippingMessage(slot)));
+        this.clipLegend.textContent=clippedSlots.length?'Clipped slots: '+clippedSlots.join(', ')+'. Red highlights mark pixels outside the Codex cell; their visibility is increased.':'';
+        this.assignments.replaceChildren();
+        if (source.composed) {
+          this.sequence.textContent='Composed Codex slots: '+mapping.map(i=>i+1).join(' → ');
+          this.adaptation.textContent='Fixed layer samples at actual Codex frame times. Outline: '+source.cell_size.join(' × ')+' atlas pixels. Offsets below are atlas pixels; source frames are numbered from one.';
+          let elapsed=0;
+          mapping.forEach((selected,i)=>{
+            const slot=element('div','state-slot'); slot.dataset.slot=i;
+            const frameButton=button('Frame '+(i+1)+' · '+elapsed+' ms · holds '+this.row.delays_ms[i]+' ms',this.row.name+' inspect frame '+(i+1),()=>this.seek(i));
+            slot.append(frameButton);
+            source.frames[selected].layers.forEach(layer=>{
+              const opacity=Math.round((layer.opacity??1)*1000)/10;
+              const offset=layer.offset || [0,0];
+              slot.append(element('div','state-layer text-small',layer.source+' / '+layer.animation+' / frame '+(layer.frame+1)+' · offset ('+offset.join(', ')+') px · opacity '+opacity+'%'+(layer.mirror?' · mirrored':'')));
+            });
+            const clipped=clippingSummary(source.frames[selected]);
+            if (clipped) slot.append(element('div','state-layer text-small','Clipping: '+clipped));
+            if (!source.frames[selected].layers.length) slot.append(element('div','state-layer text-small','Transparent cell; no visible layers.'));
+            this.assignments.append(slot); elapsed+=this.row.delays_ms[i];
+          });
+          return;
+        }
+        this.sequence.textContent='Source frames: '+mapping.map(i=>i+1).join(' → ');
+        const missing=source.frames.map((_,i)=>i).filter(i=>!mapping.includes(i));
+        const repeated=[...new Set(mapping.filter((i,p)=>mapping.indexOf(i)!==p))];
+        this.adaptation.textContent=(repeated.length?'Repeated: '+repeated.map(i=>i+1).join(', '):'No repeated frames')+' · '+(missing.length?'Omitted: '+missing.map(i=>i+1).join(', '):'All source frames included');
+        mapping.forEach((selected,i)=>{
+          const label=element('label','form-label text-small','Frame '+(i+1)+' holds '+this.row.delays_ms[i]+' ms');
+          const select=element('select','form-select'); select.setAttribute('aria-label',this.row.name+' frame '+(i+1)+' source');
+          source.frames.forEach((_,j)=>{const option=element('option','','Source frame '+(j+1));option.value=j;select.append(option);});
+          select.value=selected;
+          select.onchange=()=>{mapping[i]=Number(select.value);this.seek(i);this.renderAssignments();};
+          label.append(select);this.assignments.append(label);
+        });
+      }
+      render() {
+        const source=this.source, index=this.mapping[this.slot], frame=source.frames[index];
+        const mirrored=!source.composed && this.mirror;
+        this.playButton.textContent=this.playing?'Pause':'Play';
+        this.playButton.setAttribute('aria-label',this.playButton.textContent+' '+this.row.name);
+        this.endLabel.hidden=!this.ended;
+        this.figure.dataset.slot=this.slot; this.figure.dataset.cycle=this.cycle;
+        this.figure.dataset.playing=this.playing; this.figure.dataset.ended=this.ended;
+        this.currentText.textContent=this.ended?endMessage:this.currentMessage(this.slot);
+        this.clipText.textContent=!this.clipStatus.hidden&&!this.ended?this.clippingMessage(this.slot):'';
+        this.assignments.querySelectorAll('.state-slot').forEach(slot=>slot.setAttribute('aria-current',Number(slot.dataset.slot)===this.slot?'true':'false'));
+        this.canvas.setAttribute('aria-label',this.row.name+': '+source.label+(mirrored?', mirrored':'')+(this.ended?', idle transition':(source.composed?', composed Codex slot ':', original source frame ')+(index+1)));
+        this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        this.ctx.save();this.ctx.scale(rasterScale,rasterScale);this.ctx.translate(anchorX,anchorY);
+        if (!this.ended) {
+          if (mirrored) this.ctx.scale(-1,1);
+          const full=frame.uncropped, expandedFrame=expanded.get(source.name)[index];
+          if (full && this.clipInput.checked) {
+            const scale=source.pixel_scale, left=-frame.origin.x-full.cell_offset[0]/scale, top=-frame.origin.y-full.cell_offset[1]/scale;
+            const fullWidth=full.size[0]/scale, fullHeight=full.size[1]/scale;
+            this.ctx.drawImage(expandedFrame.image,left,top,fullWidth,fullHeight);
+            const color=palette.highlight;
+            if (expandedFrame.color!==color) {
+              const tint=expandedFrame.tint.getContext('2d'); tint.clearRect(0,0,full.size[0],full.size[1]);
+              tint.globalCompositeOperation='source-over';tint.drawImage(expandedFrame.mask,0,0);
+              tint.globalCompositeOperation='source-in';tint.fillStyle=color;tint.fillRect(0,0,full.size[0],full.size[1]);
+              expandedFrame.color=color;
+            }
+            this.ctx.save();this.ctx.beginPath();
+            this.ctx.rect(left,top,fullWidth,fullHeight);
+            this.ctx.rect(-frame.origin.x,-frame.origin.y,frame.width,frame.height);
+            this.ctx.clip('evenodd');this.ctx.drawImage(expandedFrame.tint,left,top,fullWidth,fullHeight);this.ctx.restore();
+          } else {
+            this.ctx.drawImage(original.get(source.name)[index],-frame.origin.x,-frame.origin.y,frame.width,frame.height);
+          }
+        }
+        if (source.composed) {
+          this.ctx.strokeStyle=palette.outline;
+          this.ctx.lineWidth=1/rasterScale;this.ctx.setLineDash([3,3]);
+          this.ctx.strokeRect(-frame.origin.x,-frame.origin.y,frame.width,frame.height);
+        }
+        this.ctx.restore();
+      }
+    }
+    controls.speed.onchange=()=>{
+      cards.forEach(card=>card.stopTimer()); speed=Number(controls.speed.value);
+      cards.forEach(card=>card.schedule());
+    };
+    controls.mode.onchange=()=>{
+      mode=controls.mode.value;
+      cards.forEach(card=>{
+        const resume=card.ended&&!reduced.matches;
+        card.reset();if(resume)card.playing=true;card.render();card.schedule();
+      });
+      output.notice.textContent=mode==='runtime'?'Non-idle states stop after '+repeatCount+' cycles at their return to idle.':'Each state loops independently for comparison.';
+    };
+    reduced.addEventListener('change',event=>{
+      if (event.matches) cards.forEach(card=>{card.playing=false;card.render();card.schedule();});
+    });
+    const loadImage=url=>new Promise((resolve,reject)=>{
+      const image=new Image();image.onload=()=>resolve(image);image.onerror=reject;image.src=url;
+    });
+    Promise.all(sources.map(async source=>{
+      const images=await Promise.all(source.frames.map(async frame=>{
+        const cropped=await loadImage(frame.image);
+        if (!frame.uncropped) return {cropped};
+        const image=await loadImage(frame.uncropped.image);
+        const mask=document.createElement('canvas');mask.width=image.width;mask.height=image.height;
+        const maskContext=mask.getContext('2d');maskContext.drawImage(image,0,0);
+        const pixels=maskContext.getImageData(0,0,mask.width,mask.height);
+        // Boost only the diagnostic mask, so faint cropped glow remains easy to inspect.
+        for(let offset=0;offset<pixels.data.length;offset+=4) pixels.data[offset+3]=pixels.data[offset+3]?255:0;
+        maskContext.putImageData(pixels,0,0);
+        const tint=document.createElement('canvas');tint.width=mask.width;tint.height=mask.height;
+        return {cropped,expanded:{image,mask,tint,color:null}};
+      }));
+      original.set(source.name,images.map(item=>item.cropped));
+      expanded.set(source.name,images.map(item=>item.expanded));
+    })).then(()=>{
+      rows.forEach(row=>cards.set(row.name,new StatePreview(row)));
+      root.dataset.ready='true';
+    }).catch(()=>{output.notice.textContent='Sprite images could not be loaded.';output.notice.setAttribute('role','alert');});
+  })();
+  </script>
+</main>
+</body>
+</html>
