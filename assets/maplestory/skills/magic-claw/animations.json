@@ -9,12 +9,12 @@
     "method": "Base64 PNG canvases decoded without pixel edits; original WZ properties retained."
   },
   "animations": {
-    "magic_claw_hit": {
+    "hit": {
       "wz_path": "Skill/200.img/skill/2001005/hit/0",
       "frames": [
         {
           "index": 0,
-          "file": "frames/magic_claw_hit/0.png",
+          "file": "hit/0.png",
           "width": 78,
           "height": 72,
           "origin": {
@@ -38,7 +38,7 @@
         },
         {
           "index": 1,
-          "file": "frames/magic_claw_hit/1.png",
+          "file": "hit/1.png",
           "width": 77,
           "height": 78,
           "origin": {
@@ -62,7 +62,7 @@
         },
         {
           "index": 2,
-          "file": "frames/magic_claw_hit/2.png",
+          "file": "hit/2.png",
           "width": 83,
           "height": 94,
           "origin": {
@@ -86,7 +86,7 @@
         },
         {
           "index": 3,
-          "file": "frames/magic_claw_hit/3.png",
+          "file": "hit/3.png",
           "width": 77,
           "height": 78,
           "origin": {
@@ -110,7 +110,7 @@
         },
         {
           "index": 4,
-          "file": "frames/magic_claw_hit/4.png",
+          "file": "hit/4.png",
           "width": 77,
           "height": 78,
           "origin": {

@@ -4,9 +4,17 @@ The pet combines 25 native-resolution PNGs from MapleStory.IO's archive of the *
 
 | Asset | Frames | Archive details |
 | --- | ---: | --- |
-| Green Slime, monster 210100 | 16 | [Slime source notes](../../assets/slime/README.md) |
-| Bronze meso, item 09000000 | 4 | [Meso source notes](../../assets/meso/README.md) |
-| Magic Claw impact, skill 2001005 | 5 | [Magic Claw source notes](../../assets/magic-claw/README.md) |
+| Green Slime, monster 210100 | 16 | [Slime source notes](../../assets/maplestory/mobs/slime/README.md) |
+| Bronze meso, item 09000000 | 4 | [Meso source notes](../../assets/maplestory/items/meso/README.md) |
+| Magic Claw impact, skill 2001005 | 5 | [Magic Claw source notes](../../assets/maplestory/skills/magic-claw/README.md) |
+
+The archive ZIPs encode the WZ path as a flat, hyphenated filename. The source directories use readable asset and sequence names. Frame numbers match the original WZ indices. The manifests record each frame’s full WZ path.
+
+| ZIP member | Source PNG in this repository |
+| --- | --- |
+| `Mob-0210100.img-stand-0.png` | [maplestory/mobs/slime/stand/0.png](../../assets/maplestory/mobs/slime/stand/0.png) |
+| `Item-Special-0900.img-09000000-iconRaw-0.png` | [maplestory/items/meso/bronze/0.png](../../assets/maplestory/items/meso/bronze/0.png) |
+| `Skill-200.img-skill-2001005-hit-0-0.png` | [maplestory/skills/magic-claw/hit/0.png](../../assets/maplestory/skills/magic-claw/hit/0.png) |
 
 The description is the first sentence of the English [GMS v83 Monster Book entry](https://maplestory.io/api/wz/GMS/83/String/MonsterBook.img/210100/episode).
 

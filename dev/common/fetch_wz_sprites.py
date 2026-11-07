@@ -52,7 +52,7 @@ def main():
         origin = props.get("origin")
         if not isinstance(origin, dict) or not {"x", "y"} <= origin.keys():
             raise ValueError(f"{path}: explicit origin required")
-        target = out / "frames" / name / f"{index}.png"
+        target = out / name / f"{index}.png"
         delay = props.get("delay")
         return name, png, {
             "index": index, "file": target.relative_to(out).as_posix(),

@@ -9,12 +9,12 @@
     "method": "Base64 PNG canvases decoded without pixel edits; original WZ properties retained."
   },
   "animations": {
-    "meso_bronze": {
+    "bronze": {
       "wz_path": "Item/Special/0900.img/09000000/iconRaw",
       "frames": [
         {
           "index": 0,
-          "file": "frames/meso_bronze/0.png",
+          "file": "bronze/0.png",
           "width": 23,
           "height": 24,
           "origin": {
@@ -36,7 +36,7 @@
         },
         {
           "index": 1,
-          "file": "frames/meso_bronze/1.png",
+          "file": "bronze/1.png",
           "width": 25,
           "height": 24,
           "origin": {
@@ -58,7 +58,7 @@
         },
         {
           "index": 2,
-          "file": "frames/meso_bronze/2.png",
+          "file": "bronze/2.png",
           "width": 23,
           "height": 24,
           "origin": {
@@ -80,7 +80,7 @@
         },
         {
           "index": 3,
-          "file": "frames/meso_bronze/3.png",
+          "file": "bronze/3.png",
           "width": 5,
           "height": 24,
           "origin": {

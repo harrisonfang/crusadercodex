@@ -1,7 +1,7 @@
 # Scripts
 
 Run `sh scripts/build.sh` from the repository root to assemble the website in `dist/`.
-The script starts with an empty output directory, copies the website and its
-`assets/gms-v102/` UI artwork, and publishes each pet's final sprite sheet at
-`assets/pets/<pet-id>/spritesheet.png`. When the site uses a new artwork directory,
-add its path to the build script. Pet manifests and source frames stay in the repository.
+The build publishes the webpage, game UI artwork and each finished pet's
+`spritesheet.png` at its repository-relative location under `assets/pets/`.
+It accepts both game-grouped bundles and older single-directory bundles.
+Source sprites, install manifests and authoring previews stay in the repository or local build folder.

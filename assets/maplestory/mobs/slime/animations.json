@@ -14,7 +14,7 @@
       "frames": [
         {
           "index": 0,
-          "file": "frames/stand/0.png",
+          "file": "stand/0.png",
           "width": 64,
           "height": 49,
           "origin": {
@@ -52,7 +52,7 @@
         },
         {
           "index": 1,
-          "file": "frames/stand/1.png",
+          "file": "stand/1.png",
           "width": 69,
           "height": 49,
           "origin": {
@@ -90,7 +90,7 @@
         },
         {
           "index": 2,
-          "file": "frames/stand/2.png",
+          "file": "stand/2.png",
           "width": 57,
           "height": 50,
           "origin": {
@@ -133,7 +133,7 @@
       "frames": [
         {
           "index": 0,
-          "file": "frames/move/0.png",
+          "file": "move/0.png",
           "width": 70,
           "height": 51,
           "origin": {
@@ -171,7 +171,7 @@
         },
         {
           "index": 1,
-          "file": "frames/move/1.png",
+          "file": "move/1.png",
           "width": 62,
           "height": 53,
           "origin": {
@@ -209,7 +209,7 @@
         },
         {
           "index": 2,
-          "file": "frames/move/2.png",
+          "file": "move/2.png",
           "width": 54,
           "height": 61,
           "origin": {
@@ -247,7 +247,7 @@
         },
         {
           "index": 3,
-          "file": "frames/move/3.png",
+          "file": "move/3.png",
           "width": 63,
           "height": 67,
           "origin": {
@@ -285,7 +285,7 @@
         },
         {
           "index": 4,
-          "file": "frames/move/4.png",
+          "file": "move/4.png",
           "width": 63,
           "height": 84,
           "origin": {
@@ -323,7 +323,7 @@
         },
         {
           "index": 5,
-          "file": "frames/move/5.png",
+          "file": "move/5.png",
           "width": 61,
           "height": 71,
           "origin": {
@@ -361,7 +361,7 @@
         },
         {
           "index": 6,
-          "file": "frames/move/6.png",
+          "file": "move/6.png",
           "width": 60,
           "height": 46,
           "origin": {
@@ -404,7 +404,7 @@
       "frames": [
         {
           "index": 0,
-          "file": "frames/jump/0.png",
+          "file": "jump/0.png",
           "width": 63,
           "height": 67,
           "origin": {
@@ -447,7 +447,7 @@
       "frames": [
         {
           "index": 0,
-          "file": "frames/hit1/0.png",
+          "file": "hit1/0.png",
           "width": 63,
           "height": 66,
           "origin": {
@@ -490,7 +490,7 @@
       "frames": [
         {
           "index": 0,
-          "file": "frames/die1/0.png",
+          "file": "die1/0.png",
           "width": 61,
           "height": 60,
           "origin": {
@@ -518,7 +518,7 @@
         },
         {
           "index": 1,
-          "file": "frames/die1/1.png",
+          "file": "die1/1.png",
           "width": 56,
           "height": 59,
           "origin": {
@@ -546,7 +546,7 @@
         },
         {
           "index": 2,
-          "file": "frames/die1/2.png",
+          "file": "die1/2.png",
           "width": 49,
           "height": 54,
           "origin": {
@@ -574,7 +574,7 @@
         },
         {
           "index": 3,
-          "file": "frames/die1/3.png",
+          "file": "die1/3.png",
           "width": 31,
           "height": 40,
           "origin": {
