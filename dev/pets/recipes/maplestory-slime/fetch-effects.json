@@ -1,0 +1,9 @@
+{
+  "region": "GMS",
+  "version": "83",
+  "output": "../../build/fetched/maplestory-slime/effects",
+  "animations": {
+    "magic_claw_hit": "Skill/200.img/skill/2001005/hit/0",
+    "meso_bronze": "Item/Special/0900.img/09000000/iconRaw"
+  }
+}

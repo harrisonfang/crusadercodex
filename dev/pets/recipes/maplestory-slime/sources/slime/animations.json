@@ -1,0 +1,249 @@
+{
+  "source": {
+    "game": "MapleStory",
+    "region": "GMS",
+    "version": "83",
+    "provider": "MapleStory.IO",
+    "art_owner": "Nexon / Wizet",
+    "base_url": "https://maplestory.io/api/wz/GMS/83/"
+  },
+  "animations": {
+    "stand": {
+      "wz_path": "Mob/0210100.img/stand",
+      "frames": [
+        {
+          "index": 0,
+          "wz_path": "Mob/0210100.img/stand/0",
+          "origin": {
+            "x": 27,
+            "y": 49
+          },
+          "width": 64,
+          "height": 49,
+          "delay_ms": 200,
+          "file": "frames/stand/0.png",
+          "sha256": "7eb872ce9dad2b5c04b6173802910be538ccd207f707fba76dd628274adf8da6"
+        },
+        {
+          "index": 1,
+          "wz_path": "Mob/0210100.img/stand/1",
+          "origin": {
+            "x": 28,
+            "y": 49
+          },
+          "width": 69,
+          "height": 49,
+          "delay_ms": 300,
+          "file": "frames/stand/1.png",
+          "sha256": "e52a803da43bc053a2df4e83b0886275bea4659d97420386542105a43314607a"
+        },
+        {
+          "index": 2,
+          "wz_path": "Mob/0210100.img/stand/2",
+          "origin": {
+            "x": 26,
+            "y": 50
+          },
+          "width": 57,
+          "height": 50,
+          "delay_ms": 250,
+          "file": "frames/stand/2.png",
+          "sha256": "85746c2623cd861ceb89e2af65a601af767dd914ae9acb65eed48e604d9840a0"
+        }
+      ]
+    },
+    "move": {
+      "wz_path": "Mob/0210100.img/move",
+      "frames": [
+        {
+          "index": 0,
+          "wz_path": "Mob/0210100.img/move/0",
+          "origin": {
+            "x": 29,
+            "y": 51
+          },
+          "width": 70,
+          "height": 51,
+          "delay_ms": 200,
+          "file": "frames/move/0.png",
+          "sha256": "e77aac24cbd95036cab59b13f61f29d564583f2fe3285c8fd1acf08f195253e6"
+        },
+        {
+          "index": 1,
+          "wz_path": "Mob/0210100.img/move/1",
+          "origin": {
+            "x": 31,
+            "y": 53
+          },
+          "width": 62,
+          "height": 53,
+          "delay_ms": 50,
+          "file": "frames/move/1.png",
+          "sha256": "1b696ea4a70e1f3adc792ce82105f14256a46f4d138f00e3d42c60f539fbb12f"
+        },
+        {
+          "index": 2,
+          "wz_path": "Mob/0210100.img/move/2",
+          "origin": {
+            "x": 27,
+            "y": 71
+          },
+          "width": 54,
+          "height": 61,
+          "delay_ms": 150,
+          "file": "frames/move/2.png",
+          "sha256": "34f1b9b18e2fa2377e1514286fea4ccd32f1ce08696b362d07855a6ce0fc2d18"
+        },
+        {
+          "index": 3,
+          "wz_path": "Mob/0210100.img/move/3",
+          "origin": {
+            "x": 27,
+            "y": 71
+          },
+          "width": 63,
+          "height": 67,
+          "delay_ms": 150,
+          "file": "frames/move/3.png",
+          "sha256": "b63a7b1c262272711c78dfe3a660ea9cc8d45b370e0564c3d83afaf60a484b69"
+        },
+        {
+          "index": 4,
+          "wz_path": "Mob/0210100.img/move/4",
+          "origin": {
+            "x": 27,
+            "y": 94
+          },
+          "width": 63,
+          "height": 84,
+          "delay_ms": 100,
+          "file": "frames/move/4.png",
+          "sha256": "ab80c9ca1436f5d4a559dd4b633c9063e306467060de20e695f49dc2730c8646"
+        },
+        {
+          "index": 5,
+          "wz_path": "Mob/0210100.img/move/5",
+          "origin": {
+            "x": 28,
+            "y": 71
+          },
+          "width": 61,
+          "height": 71,
+          "delay_ms": 100,
+          "file": "frames/move/5.png",
+          "sha256": "3e1d13fee4388923d255d58f16bd83880aa982265705382c2e5c3101a48997c8"
+        },
+        {
+          "index": 6,
+          "wz_path": "Mob/0210100.img/move/6",
+          "origin": {
+            "x": 27,
+            "y": 46
+          },
+          "width": 60,
+          "height": 46,
+          "delay_ms": 300,
+          "file": "frames/move/6.png",
+          "sha256": "535c4d784aa4a96048cc58675af3c6c25034b329fffb0e370fd60ce455aa2692"
+        }
+      ]
+    },
+    "jump": {
+      "wz_path": "Mob/0210100.img/jump",
+      "frames": [
+        {
+          "index": 0,
+          "wz_path": "Mob/0210100.img/jump/0",
+          "origin": {
+            "x": 27,
+            "y": 54
+          },
+          "width": 63,
+          "height": 67,
+          "delay_ms": 150,
+          "file": "frames/jump/0.png",
+          "sha256": "b63a7b1c262272711c78dfe3a660ea9cc8d45b370e0564c3d83afaf60a484b69"
+        }
+      ]
+    },
+    "hit1": {
+      "wz_path": "Mob/0210100.img/hit1",
+      "frames": [
+        {
+          "index": 0,
+          "wz_path": "Mob/0210100.img/hit1/0",
+          "origin": {
+            "x": 23,
+            "y": 66
+          },
+          "width": 63,
+          "height": 66,
+          "delay_ms": 600,
+          "file": "frames/hit1/0.png",
+          "sha256": "82dac4f9d35a45b508db3188912da99a92589d34e875568ba21cd7d9fbedb913"
+        }
+      ]
+    },
+    "die1": {
+      "wz_path": "Mob/0210100.img/die1",
+      "frames": [
+        {
+          "index": 0,
+          "wz_path": "Mob/0210100.img/die1/0",
+          "origin": {
+            "x": 26,
+            "y": 60
+          },
+          "width": 61,
+          "height": 60,
+          "delay_ms": 180,
+          "file": "frames/die1/0.png",
+          "sha256": "5e435cd992069934cd324886b2ddddec6e24cecc2a052b20716eb7f51f9c0826"
+        },
+        {
+          "index": 1,
+          "wz_path": "Mob/0210100.img/die1/1",
+          "origin": {
+            "x": 30,
+            "y": 59
+          },
+          "width": 56,
+          "height": 59,
+          "delay_ms": 180,
+          "file": "frames/die1/1.png",
+          "sha256": "f0387af986612979ff016eb77bf9048c3224cecb0683b16e0c7dfebfad49b508"
+        },
+        {
+          "index": 2,
+          "wz_path": "Mob/0210100.img/die1/2",
+          "origin": {
+            "x": 26,
+            "y": 54
+          },
+          "width": 49,
+          "height": 54,
+          "delay_ms": 180,
+          "file": "frames/die1/2.png",
+          "sha256": "4f5e2f4e2a257ca6f08d5df69bf14b25f5d7eccc4cddd7ba372b646ef8f21214"
+        },
+        {
+          "index": 3,
+          "wz_path": "Mob/0210100.img/die1/3",
+          "origin": {
+            "x": 14,
+            "y": 40
+          },
+          "width": 31,
+          "height": 40,
+          "delay_ms": 300,
+          "file": "frames/die1/3.png",
+          "properties": {
+            "a0": 255,
+            "a1": 0
+          },
+          "sha256": "1b7ca1ef82d96a109429e709272115a56a8dc48f8198b587684cf3fc7025b69e"
+        }
+      ]
+    }
+  }
+}
