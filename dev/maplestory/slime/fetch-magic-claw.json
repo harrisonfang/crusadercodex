@@ -1,7 +1,7 @@
 {
   "region": "GMS",
   "version": "83",
-  "output": "../../assets/maplestory/skills/magic-claw",
+  "output": "../../../assets/maplestory/skills/magic-claw",
   "cache": "build/wz-cache",
   "animations": {
     "hit": "Skill/200.img/skill/2001005/hit/0"

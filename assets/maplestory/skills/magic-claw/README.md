@@ -7,5 +7,5 @@ The fetcher decoded each numbered Canvas node's base64 PNG and read its origin a
 From the repository root, run:
 
 ```sh
-python3 dev/common/fetch_wz_sprites.py dev/maplestory-slime/fetch-magic-claw.json
+python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch-magic-claw.json
 ```

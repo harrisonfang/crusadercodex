@@ -30,7 +30,7 @@ class ShippedPetTest(unittest.TestCase):
             manifests[pet_id] = (path.parent, manifest)
 
         matched = 0
-        for recipe in sorted(authoring.glob("*/recipe.json")):
+        for recipe in sorted(authoring.glob("*/*/recipe.json")):
             pet_id = json.loads(recipe.read_text())["pet"]["id"]
             if pet_id not in manifests:  # A draft recipe need not have install files yet.
                 continue

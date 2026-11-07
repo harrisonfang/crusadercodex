@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compile original game frames into a Codex v1 pet, without repainting pixels.
 
-Usage: python3 dev/common/build_pet.py dev/maplestory-slime/recipe.json
+Usage: python3 dev/common/build_pet.py dev/maplestory/slime/recipe.json
 Dependency: Pillow. Paths in a config are relative to that config; paths in a
 source manifest are relative to that manifest. The runtime profile is a separate
 input so updated Codex timings and future game assets do not require code edits.

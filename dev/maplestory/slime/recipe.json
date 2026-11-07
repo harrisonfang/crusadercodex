@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "runtime_profile": "../common/timing-profile.json",
+  "runtime_profile": "../../common/timing-profile.json",
   "output": "build",
   "pet": {
     "id": "maplestory-slime",
@@ -10,9 +10,9 @@
     "spritesheetPath": "spritesheet.png"
   },
   "sources": {
-    "slime": "../../assets/maplestory/mobs/slime/animations.json",
-    "meso": "../../assets/maplestory/items/meso/animations.json",
-    "magic_claw": "../../assets/maplestory/skills/magic-claw/animations.json"
+    "slime": "../../../assets/maplestory/mobs/slime/animations.json",
+    "meso": "../../../assets/maplestory/items/meso/animations.json",
+    "magic_claw": "../../../assets/maplestory/skills/magic-claw/animations.json"
   },
   "defaults": {
     "source": "slime",
