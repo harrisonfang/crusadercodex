@@ -1,0 +1,110 @@
+{
+  "image_root": "../../../assets/maplestory/items/meso",
+  "source": {
+    "game": "MapleStory",
+    "provider": "MapleStory.IO",
+    "region": "GMS",
+    "version": "83",
+    "base_url": "https://maplestory.io/api/wz/GMS/83/",
+    "art_owner": "Nexon / Wizet",
+    "method": "Base64 PNG canvases decoded without pixel edits; original WZ properties retained."
+  },
+  "animations": {
+    "bronze": {
+      "wz_path": "Item/Special/0900.img/09000000/iconRaw",
+      "frames": [
+        {
+          "index": 0,
+          "file": "bronze/0.png",
+          "width": 23,
+          "height": 24,
+          "origin": {
+            "x": -5,
+            "y": 28
+          },
+          "delay_ms": null,
+          "delay_status": "absent_in_wz",
+          "properties": {
+            "origin": {
+              "x": -5,
+              "y": 28,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Item/Special/0900.img/09000000/iconRaw/0",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Item/Special/0900.img/09000000/iconRaw/0",
+          "sha256": "414453113e54646143b86d9b274dedd815e0fe7d37b8ee50a35202af97858d7a"
+        },
+        {
+          "index": 1,
+          "file": "bronze/1.png",
+          "width": 25,
+          "height": 24,
+          "origin": {
+            "x": -4,
+            "y": 28
+          },
+          "delay_ms": null,
+          "delay_status": "absent_in_wz",
+          "properties": {
+            "origin": {
+              "x": -4,
+              "y": 28,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Item/Special/0900.img/09000000/iconRaw/1",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Item/Special/0900.img/09000000/iconRaw/1",
+          "sha256": "f1f5ecbfb24563990730dfd5c621519dd0c65ddfff5de62bdfa7c0baeeaaaf1f"
+        },
+        {
+          "index": 2,
+          "file": "bronze/2.png",
+          "width": 23,
+          "height": 24,
+          "origin": {
+            "x": -5,
+            "y": 28
+          },
+          "delay_ms": null,
+          "delay_status": "absent_in_wz",
+          "properties": {
+            "origin": {
+              "x": -5,
+              "y": 28,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Item/Special/0900.img/09000000/iconRaw/2",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Item/Special/0900.img/09000000/iconRaw/2",
+          "sha256": "13cc26ba7b4ccbdbb4bef98ac82e9da2ef62ce37cf9c593aa6de5769383e99b3"
+        },
+        {
+          "index": 3,
+          "file": "bronze/3.png",
+          "width": 5,
+          "height": 24,
+          "origin": {
+            "x": -14,
+            "y": 28
+          },
+          "delay_ms": null,
+          "delay_status": "absent_in_wz",
+          "properties": {
+            "origin": {
+              "x": -14,
+              "y": 28,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Item/Special/0900.img/09000000/iconRaw/3",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Item/Special/0900.img/09000000/iconRaw/3",
+          "sha256": "11f1d27796e0be8cdc1a6220e5f7ed3ab1f3daba10ed037846a85b4bfba55b4f"
+        }
+      ]
+    }
+  },
+  "notes": [
+    "A null delay_ms means the WZ frame does not specify a delay. No game-client fallback timing has been assumed."
+  ]
+}

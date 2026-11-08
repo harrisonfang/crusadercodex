@@ -1,0 +1,612 @@
+{
+  "image_root": "../../../assets/maplestory/mobs/slime",
+  "source": {
+    "game": "MapleStory",
+    "provider": "MapleStory.IO",
+    "region": "GMS",
+    "version": "83",
+    "base_url": "https://maplestory.io/api/wz/GMS/83/",
+    "art_owner": "Nexon / Wizet",
+    "method": "Base64 PNG canvases decoded without pixel edits; original WZ properties retained."
+  },
+  "animations": {
+    "stand": {
+      "wz_path": "Mob/0210100.img/stand",
+      "frames": [
+        {
+          "index": 0,
+          "file": "stand/0.png",
+          "width": 64,
+          "height": 49,
+          "origin": {
+            "x": 27,
+            "y": 49
+          },
+          "delay_ms": 200,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "200",
+            "head": {
+              "x": 3,
+              "y": -43,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -27,
+              "y": -43,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 27,
+              "y": 49,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 24,
+              "y": 0,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/stand/0",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/stand/0",
+          "sha256": "7eb872ce9dad2b5c04b6173802910be538ccd207f707fba76dd628274adf8da6"
+        },
+        {
+          "index": 1,
+          "file": "stand/1.png",
+          "width": 69,
+          "height": 49,
+          "origin": {
+            "x": 28,
+            "y": 49
+          },
+          "delay_ms": 300,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "300",
+            "head": {
+              "x": 3,
+              "y": -42,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -28,
+              "y": -42,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 28,
+              "y": 49,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 24,
+              "y": 0,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/stand/1",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/stand/1",
+          "sha256": "e52a803da43bc053a2df4e83b0886275bea4659d97420386542105a43314607a"
+        },
+        {
+          "index": 2,
+          "file": "stand/2.png",
+          "width": 57,
+          "height": 50,
+          "origin": {
+            "x": 26,
+            "y": 50
+          },
+          "delay_ms": 250,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "250",
+            "head": {
+              "x": 2,
+              "y": -44,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -26,
+              "y": -44,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 26,
+              "y": 50,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 23,
+              "y": 0,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/stand/2",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/stand/2",
+          "sha256": "85746c2623cd861ceb89e2af65a601af767dd914ae9acb65eed48e604d9840a0"
+        }
+      ]
+    },
+    "move": {
+      "wz_path": "Mob/0210100.img/move",
+      "frames": [
+        {
+          "index": 0,
+          "file": "move/0.png",
+          "width": 70,
+          "height": 51,
+          "origin": {
+            "x": 29,
+            "y": 51
+          },
+          "delay_ms": 200,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "200",
+            "head": {
+              "x": -4,
+              "y": -41,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -29,
+              "y": -41,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 29,
+              "y": 51,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 26,
+              "y": 0,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/move/0",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/move/0",
+          "sha256": "e77aac24cbd95036cab59b13f61f29d564583f2fe3285c8fd1acf08f195253e6"
+        },
+        {
+          "index": 1,
+          "file": "move/1.png",
+          "width": 62,
+          "height": 53,
+          "origin": {
+            "x": 31,
+            "y": 53
+          },
+          "delay_ms": 50,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "50",
+            "head": {
+              "x": -8,
+              "y": -40,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -31,
+              "y": -40,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 31,
+              "y": 53,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 26,
+              "y": 0,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/move/1",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/move/1",
+          "sha256": "1b696ea4a70e1f3adc792ce82105f14256a46f4d138f00e3d42c60f539fbb12f"
+        },
+        {
+          "index": 2,
+          "file": "move/2.png",
+          "width": 54,
+          "height": 61,
+          "origin": {
+            "x": 27,
+            "y": 71
+          },
+          "delay_ms": 150,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "150",
+            "head": {
+              "x": -4,
+              "y": -66,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -27,
+              "y": -66,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 27,
+              "y": 71,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 19,
+              "y": -16,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/move/2",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/move/2",
+          "sha256": "34f1b9b18e2fa2377e1514286fea4ccd32f1ce08696b362d07855a6ce0fc2d18"
+        },
+        {
+          "index": 3,
+          "file": "move/3.png",
+          "width": 63,
+          "height": 67,
+          "origin": {
+            "x": 27,
+            "y": 71
+          },
+          "delay_ms": 150,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "150",
+            "head": {
+              "x": -4,
+              "y": -66,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -27,
+              "y": -66,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 27,
+              "y": 71,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 19,
+              "y": -17,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/move/3",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/move/3",
+          "sha256": "b63a7b1c262272711c78dfe3a660ea9cc8d45b370e0564c3d83afaf60a484b69"
+        },
+        {
+          "index": 4,
+          "file": "move/4.png",
+          "width": 63,
+          "height": 84,
+          "origin": {
+            "x": 27,
+            "y": 94
+          },
+          "delay_ms": 100,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "100",
+            "head": {
+              "x": -3,
+              "y": -58,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -27,
+              "y": -58,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 27,
+              "y": 94,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 21,
+              "y": -10,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/move/4",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/move/4",
+          "sha256": "ab80c9ca1436f5d4a559dd4b633c9063e306467060de20e695f49dc2730c8646"
+        },
+        {
+          "index": 5,
+          "file": "move/5.png",
+          "width": 61,
+          "height": 71,
+          "origin": {
+            "x": 28,
+            "y": 71
+          },
+          "delay_ms": 100,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "100",
+            "head": {
+              "x": 6,
+              "y": -42,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -28,
+              "y": -42,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 28,
+              "y": 71,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 25,
+              "y": 0,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/move/5",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/move/5",
+          "sha256": "3e1d13fee4388923d255d58f16bd83880aa982265705382c2e5c3101a48997c8"
+        },
+        {
+          "index": 6,
+          "file": "move/6.png",
+          "width": 60,
+          "height": 46,
+          "origin": {
+            "x": 27,
+            "y": 46
+          },
+          "delay_ms": 300,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "300",
+            "head": {
+              "x": 3,
+              "y": -43,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -27,
+              "y": -43,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 27,
+              "y": 46,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 24,
+              "y": 0,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/move/6",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/move/6",
+          "sha256": "535c4d784aa4a96048cc58675af3c6c25034b329fffb0e370fd60ce455aa2692"
+        }
+      ]
+    },
+    "jump": {
+      "wz_path": "Mob/0210100.img/jump",
+      "frames": [
+        {
+          "index": 0,
+          "file": "jump/0.png",
+          "width": 63,
+          "height": 67,
+          "origin": {
+            "x": 27,
+            "y": 54
+          },
+          "delay_ms": 150,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": "150",
+            "head": {
+              "x": -4,
+              "y": -49,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -27,
+              "y": -49,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 27,
+              "y": 54,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 19,
+              "y": 0,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/jump/0",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/jump/0",
+          "sha256": "b63a7b1c262272711c78dfe3a660ea9cc8d45b370e0564c3d83afaf60a484b69"
+        }
+      ]
+    },
+    "hit1": {
+      "wz_path": "Mob/0210100.img/hit1",
+      "frames": [
+        {
+          "index": 0,
+          "file": "hit1/0.png",
+          "width": 63,
+          "height": 66,
+          "origin": {
+            "x": 23,
+            "y": 66
+          },
+          "delay_ms": 600,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": 600,
+            "head": {
+              "x": -2,
+              "y": -46,
+              "isEmpty": false
+            },
+            "lt": {
+              "x": -23,
+              "y": -46,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 23,
+              "y": 66,
+              "isEmpty": false
+            },
+            "rb": {
+              "x": 26,
+              "y": 0,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/hit1/0",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/hit1/0",
+          "sha256": "82dac4f9d35a45b508db3188912da99a92589d34e875568ba21cd7d9fbedb913"
+        }
+      ]
+    },
+    "die1": {
+      "wz_path": "Mob/0210100.img/die1",
+      "frames": [
+        {
+          "index": 0,
+          "file": "die1/0.png",
+          "width": 61,
+          "height": 60,
+          "origin": {
+            "x": 26,
+            "y": 60
+          },
+          "delay_ms": 180,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": 180,
+            "head": {
+              "x": -5,
+              "y": -24,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 26,
+              "y": 60,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/die1/0",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/die1/0",
+          "sha256": "5e435cd992069934cd324886b2ddddec6e24cecc2a052b20716eb7f51f9c0826"
+        },
+        {
+          "index": 1,
+          "file": "die1/1.png",
+          "width": 56,
+          "height": 59,
+          "origin": {
+            "x": 30,
+            "y": 59
+          },
+          "delay_ms": 180,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": 180,
+            "head": {
+              "x": -5,
+              "y": -15,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 30,
+              "y": 59,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/die1/1",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/die1/1",
+          "sha256": "f0387af986612979ff016eb77bf9048c3224cecb0683b16e0c7dfebfad49b508"
+        },
+        {
+          "index": 2,
+          "file": "die1/2.png",
+          "width": 49,
+          "height": 54,
+          "origin": {
+            "x": 26,
+            "y": 54
+          },
+          "delay_ms": 180,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "delay": 180,
+            "head": {
+              "x": -5,
+              "y": -15,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 26,
+              "y": 54,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/die1/2",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/die1/2",
+          "sha256": "4f5e2f4e2a257ca6f08d5df69bf14b25f5d7eccc4cddd7ba372b646ef8f21214"
+        },
+        {
+          "index": 3,
+          "file": "die1/3.png",
+          "width": 31,
+          "height": 40,
+          "origin": {
+            "x": 14,
+            "y": 40
+          },
+          "delay_ms": 300,
+          "delay_status": "explicit_wz",
+          "properties": {
+            "a0": 255,
+            "a1": 0,
+            "delay": 300,
+            "head": {
+              "x": -5,
+              "y": -15,
+              "isEmpty": false
+            },
+            "origin": {
+              "x": 14,
+              "y": 40,
+              "isEmpty": false
+            }
+          },
+          "wz_path": "Mob/0210100.img/die1/3",
+          "source_url": "https://maplestory.io/api/wz/GMS/83/Mob/0210100.img/die1/3",
+          "sha256": "1b7ca1ef82d96a109429e709272115a56a8dc48f8198b587684cf3fc7025b69e"
+        }
+      ]
+    }
+  },
+  "notes": [
+    "A null delay_ms means the WZ frame does not specify a delay. No game-client fallback timing has been assumed."
+  ]
+}

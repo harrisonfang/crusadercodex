@@ -2,4 +2,5 @@
 
 A collection of Codex pets and a static gallery inspired by MapleStory's Crusader Codex.
 
-The [pet bundles](pets/) are grouped by game. Each contains a `pet.json` manifest and the sprite sheet it references. The [original artwork](assets/) includes source and version notes for each asset.
+- [Pet install files](pets/) — bundles are grouped by game and contain the manifest and sprite sheet.
+- [Build and review a pet from original game sprites](dev/README.md) — local tools, source frames, and a worked example for contributors.
