@@ -23,11 +23,7 @@ def compiled_animations(directory, states, runtime, scale, anchor, prefix='compi
     """Embed exact built cells without allowing their timed layer samples to be remapped."""
     if not math.isfinite(scale) or scale <= 0:
         raise ValueError('Compiled scale must be positive and finite')
-    report_path = directory / "build_report.json"
-    legacy_path = directory / "build-report.json"
-    if not report_path.exists() and legacy_path.exists():
-        report_path = legacy_path  # Comparisons can use output from earlier builds.
-    report = read_json(report_path)
+    report = read_json(directory / "build_report.json")
     for key in ('sprite_version', 'cell_width', 'cell_height', 'columns', 'rows'):
         if report['runtime'][key] != runtime[key]:
             raise ValueError(f'Compiled pet and preview runtime disagree on {key}')
@@ -94,10 +90,11 @@ def raw_animations(recipe_path, recipe):
     for alias, relative in recipe["sources"].items():
         manifest_path = recipe_path.parent / relative
         source = read_json(manifest_path)
+        image_root = manifest_path.parent / source["image_root"]
         for name, animation in source["animations"].items():
             frames = []
             for item in animation["frames"]:
-                path = manifest_path.parent / item["file"]
+                path = image_root / item["file"]
                 raw = path.read_bytes()
                 if item.get("sha256") and hashlib.sha256(raw).hexdigest() != item["sha256"]:
                     raise ValueError(f"Source PNG checksum does not match: {path}")

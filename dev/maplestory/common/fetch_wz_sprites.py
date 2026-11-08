@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fetch lossless MapleStory WZ frame canvases with origins and explicit delays.
 
-Usage: python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch_slime.json
+Usage: python3 dev/maplestory/common/fetch_wz_sprites.py dev/maplestory/sources/meso.json
 Requires curl; decoding/downloads use only the Python standard library.
 Existing cached HTTP responses are reused unless --refresh is passed.
 """
@@ -18,15 +18,16 @@ from urllib.parse import quote
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("config", type=Path)
+    parser.add_argument("manifest", type=Path, help="Source manifest to populate with the original WZ frame data")
     parser.add_argument("--refresh", action="store_true")
     args = parser.parse_args()
-    config = json.loads(args.config.read_text())
-    base_dir = args.config.resolve().parent
-    out = (base_dir / config["output"]).resolve()
-    cache = (base_dir / config.get("cache", "build/wz-cache")).resolve()
+    manifest_path = args.manifest.resolve()
+    spec = json.loads(manifest_path.read_text())
+    out = (manifest_path.parent / spec["image_root"]).resolve()
+    cache = manifest_path.parent / "build" / "wz-cache"
     cache.mkdir(parents=True, exist_ok=True)
-    base = "https://maplestory.io/api/wz/" + quote(config["region"], safe="") + "/" + quote(config["version"], safe="") + "/"
+    region, version = spec["source"]["region"], spec["source"]["version"]
+    base = f"https://maplestory.io/api/wz/{quote(region, safe='')}/{quote(version, safe='')}/"
 
     def fetch(path):
         url = base + quote(path, safe="/")
@@ -65,7 +66,8 @@ def main():
         }
 
     animations, jobs = {}, []
-    for name, path in config["animations"].items():
+    for name, sequence in spec["animations"].items():
+        path = sequence["wz_path"]
         ids = sorted(int(child) for child in fetch(path)["children"] if child.isdigit())
         if not ids:
             raise ValueError(f"{path}: no numbered frames")
@@ -80,17 +82,18 @@ def main():
         target.write_bytes(png)
         animations[name]["frames"].append(data)
     manifest = {
-        "source": {"game": "MapleStory", "provider": "MapleStory.IO", "region": config["region"], "version": config["version"],
+        "image_root": spec["image_root"],
+        "source": {"game": "MapleStory", "provider": "MapleStory.IO", "region": region, "version": version,
                    "base_url": base,
                    "art_owner": "Nexon / Wizet", "method": "Base64 PNG canvases decoded without pixel edits; original WZ properties retained."},
         "animations": animations,
         "notes": ["A null delay_ms means the WZ frame does not specify a delay. No game-client fallback timing has been assumed."],
     }
-    (out / "animations.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
     for name, animation in animations.items():
         frames = animation["frames"]
         print(f"{name}: {len(frames)} frames; delays {[f['delay_ms'] for f in frames]} ms")
-    print(out / "animations.json")
+    print(manifest_path)
 
 
 if __name__ == "__main__":

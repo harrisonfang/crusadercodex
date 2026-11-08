@@ -191,12 +191,11 @@
       }
       loadDefaults() {
         const choice = data.defaults[this.row.name];
-        const originalChoice = (typeof choice === 'string' ? choice : choice?.source) || sources[0].name;
-        this.sourceName = data.compiled_defaults?.[this.row.name] || originalChoice;
-        this.mirror = typeof choice === 'object' && Boolean(choice.mirror);
+        this.sourceName = choice ? choice.source : data.compiled_defaults[this.row.name];
+        this.mirror = choice?.mirror ?? false;
         // Fresh arrays keep trial edits from changing the saved mapping, even after repeated resets.
         this.choices = new Map();
-        if (typeof choice === 'object' && Array.isArray(choice.frames)) this.choices.set(originalChoice,[...choice.frames]);
+        if (choice) this.choices.set(choice.source,[...choice.frames]);
       }
       resetEdits() {
         this.reset(); this.loadDefaults();

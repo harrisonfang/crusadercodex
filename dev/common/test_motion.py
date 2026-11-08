@@ -224,7 +224,7 @@ class CompositionTests(unittest.TestCase):
         Image.new("RGBA", (2, 2), (21, 42, 63, 255)).save(self.path / "sprite.png")
         frame = {"file": "sprite.png", "origin": {"x": 1, "y": 2},
                  "sha256": digest(self.path / "sprite.png")}
-        self.source_data = {"source": {"description": "test fixture"},
+        self.source_data = {"image_root": ".", "source": {"description": "test fixture"},
                             "animations": {"stand": {"frames": [frame]}}}
         self.manifest = self.path / "source.json"
         self.manifest.write_text(json.dumps(self.source_data))

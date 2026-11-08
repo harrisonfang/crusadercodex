@@ -10,9 +10,9 @@
     "spritesheetPath": "spritesheet.png"
   },
   "sources": {
-    "slime": "../../../assets/maplestory/mobs/slime/animations.json",
-    "meso": "../../../assets/maplestory/items/meso/animations.json",
-    "magic_claw": "../../../assets/maplestory/skills/magic-claw/animations.json"
+    "slime": "../sources/slime.json",
+    "meso": "../sources/meso.json",
+    "magic_claw": "../sources/magic_claw.json"
   },
   "defaults": {
     "source": "slime",

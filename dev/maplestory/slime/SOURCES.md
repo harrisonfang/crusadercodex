@@ -8,7 +8,7 @@ The pet combines 25 native-resolution PNGs from MapleStory.IO's archive of the *
 | Bronze meso, item 09000000 | 4 | [Meso source notes](../../../assets/maplestory/items/meso/README.md) |
 | Magic Claw impact, skill 2001005 | 5 | [Magic Claw source notes](../../../assets/maplestory/skills/magic-claw/README.md) |
 
-The archive ZIPs encode the WZ path as a flat, hyphenated filename. The source directories use readable asset and sequence names. Frame numbers match the original WZ indices. The manifests record each frame’s full WZ path.
+The archive ZIPs encode the WZ path as a flat, hyphenated filename. The source directories use readable asset and sequence names. Frame numbers match the original WZ indices. The three manifests record each frame’s full WZ path. [Slime](../sources/slime.json) · [Meso](../sources/meso.json) · [Magic Claw](../sources/magic_claw.json)
 
 | ZIP member | Source PNG in this repository |
 | --- | --- |
@@ -18,12 +18,12 @@ The archive ZIPs encode the WZ path as a flat, hyphenated filename. The source d
 
 The description is the first sentence of the English [GMS v83 Monster Book entry](https://maplestory.io/api/wz/GMS/83/String/MonsterBook.img/210100/episode).
 
-A fresh checkout contains all the source PNGs and metadata needed to compile the pet offline. To download them again from the archive, run the following commands from the repository root with Python and `curl`:
+A fresh checkout contains all the source PNGs and metadata needed to compile the pet offline. To regenerate them, run these commands from the repository root with Python and `curl`.
 
 ```sh
-python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch_slime.json
-python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch_meso.json
-python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch_magic_claw.json
+python3 dev/maplestory/common/fetch_wz_sprites.py dev/maplestory/sources/slime.json
+python3 dev/maplestory/common/fetch_wz_sprites.py dev/maplestory/sources/meso.json
+python3 dev/maplestory/common/fetch_wz_sprites.py dev/maplestory/sources/magic_claw.json
 ```
 
-Each command updates its directory under `assets/`. It writes the lossless numbered frames and a manifest with the source paths, original WZ properties, placement origins, delays, and PNG checksums. The three configurations share a URL-keyed cache at `dev/maplestory/slime/build/wz-cache/`. Pass `--refresh` to fetch the responses again.
+Each command reads the archive paths from its manifest, writes the original numbered PNGs under `assets/maplestory/`, and updates that same manifest with frame origins, delays, WZ properties, and PNG checksums. All three use a URL-keyed cache at `dev/maplestory/sources/build/wz-cache/`. Pass `--refresh` to download the archive responses again.

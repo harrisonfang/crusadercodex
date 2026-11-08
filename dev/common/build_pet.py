@@ -2,15 +2,12 @@
 """Compile original game frames into a Codex v1 pet, without repainting pixels.
 
 Usage: python3 dev/common/build_pet.py dev/maplestory/slime/recipe.json
-Dependency: Pillow. Paths in a config are relative to that config; paths in a
-source manifest are relative to that manifest. The runtime profile is a separate
+Dependency: Pillow. Each source manifest locates its image_root relative to its
+own directory. Frame paths are relative to image_root. The runtime profile is a separate
 input so updated Codex timings and future game assets do not require code edits.
 
 Config schema_version=1: pet (Codex manifest), output, runtime_profile, sources
 (alias -> animation manifest), defaults, and rows (runtime state -> layers).
-Alternatively, preview_mapping points to a source-preview defaults JSON and
-replaces rows, using defaults.source as its source manifest alias. This keeps
-base-sprite builds synchronized with the reviewed preview choices.
 Each layer selects a source, animation, integer scale, anchor [x,y], mirror, and
 one frame selector per runtime column. A selector is an integer frame index,
 null (hide the layer), or {animation: name, frame: index}. Optional offsets are
@@ -91,36 +88,6 @@ def load_profile(path: Path) -> dict:
     return profile
 
 
-def rows_from_preview(mapping: dict, profile: dict, source_name: str, source: dict) -> dict:
-    """Materialize the same base-sprite choices and Math.round mapping as the web preview."""
-    expected = {row['name'] for row in profile['rows']}
-    if set(mapping) != expected:
-        raise ValueError('Preview mappings must specify all Codex states exactly')
-    rows = {}
-    for row in profile['rows']:
-        choice = mapping[row['name']]
-        choice = {'source': choice} if isinstance(choice, str) else choice
-        animation = choice['source']
-        source_count = len(source['animations'][animation]['frames'])
-        if not source_count:
-            raise ValueError(f'{animation}: source animation has no frames')
-        count = row['frames']
-        selectors = choice.get('frames')
-        if selectors is None:
-            # Python round uses ties-to-even; JavaScript Math.round uses half-up here.
-            selectors = [math.floor(i * (source_count - 1) / max(1, count - 1) + 0.5) for i in range(count)]
-        if not isinstance(selectors, list) or len(selectors) != count or any(
-            type(index) is not int or not 0 <= index < source_count for index in selectors
-        ):
-            raise ValueError(f'{row["name"]}: invalid preview frame selection')
-        rows[row['name']] = {
-            'description': f'Original {animation} sequence from the reviewed source preview.',
-            'layers': [{'source': source_name, 'animation': animation,
-                        'mirror': choice.get('mirror', False), 'frames': selectors}],
-        }
-    return rows
-
-
 def apply_opacity(sprite: Image.Image, opacity: float) -> Image.Image:
     """Multiply existing alpha without altering RGB, including transparent RGB."""
     opacity = finite_number(opacity, "layer opacity", 0)
@@ -180,7 +147,7 @@ def compose_layer(layer: dict, selector, offset, sources: dict, cell_size: tuple
     if index >= len(frames):
         raise ValueError(f"{label}: {animation} has {len(frames)} frames, requested {index}")
     frame = frames[index]
-    path = (source["path"].parent / frame["file"]).resolve()
+    path = (source["path"].parent / source["data"]["image_root"] / frame["file"]).resolve()
     sha256 = digest(path)
     if frame.get("sha256") and frame["sha256"] != sha256:
         raise ValueError(f"{label}: source PNG hash changed: {path}")
@@ -286,13 +253,6 @@ def build(config_path: Path, output_override: Path | None = None) -> Path:
     for name, relative_path in config["sources"].items():
         path = (base / relative_path).resolve()
         sources[name] = {"path": path, "data": read_json(path)}
-    mapping_path = None
-    if 'preview_mapping' in config:
-        if 'rows' in config:
-            raise ValueError('Use either preview_mapping or explicit rows, not both')
-        mapping_path = (base / config['preview_mapping']).resolve()
-        source_name = config['defaults']['source']
-        config['rows'] = rows_from_preview(read_json(mapping_path), profile, source_name, sources[source_name]['data'])
     width, height = profile["cell_width"], profile["cell_height"]
     expected_names = [row["name"] for row in profile["rows"]]
     if set(config["rows"]) != set(expected_names):
@@ -306,8 +266,6 @@ def build(config_path: Path, output_override: Path | None = None) -> Path:
         "sources": {name: {"manifest": config["sources"][name], "manifest_sha256": digest(value["path"]), "source": value["data"]["source"]} for name, value in sources.items()},
         "rows": [],
     }
-    if mapping_path:
-        report['preview_mapping'] = {'file': mapping_path.name, 'sha256': digest(mapping_path)}
     previews = []
     uncropped_images = []
     clipped_layer_count = 0

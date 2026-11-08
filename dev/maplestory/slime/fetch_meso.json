@@ -1,9 +1,0 @@
-{
-  "region": "GMS",
-  "version": "83",
-  "output": "../../../assets/maplestory/items/meso",
-  "cache": "build/wz-cache",
-  "animations": {
-    "bronze": "Item/Special/0900.img/09000000/iconRaw"
-  }
-}

@@ -26,7 +26,7 @@ class ClippingTests(unittest.TestCase):
         for name, image in images.items():
             image.save(self.path / f"{name}.png")
             animations[name] = {"frames": [{"file": f"{name}.png", "origin": {"x": 0, "y": 0}}]}
-        self.source = {"source": {"description": "fixture"}, "animations": animations}
+        self.source = {"image_root": ".", "source": {"description": "fixture"}, "animations": animations}
         (self.path / "source.json").write_text(json.dumps(self.source))
         self.sources = {"fixture": {"path": self.path / "source.json", "data": self.source}}
         self.profile = {"sprite_version": 1, "cell_width": 4, "cell_height": 4, "columns": 1,
