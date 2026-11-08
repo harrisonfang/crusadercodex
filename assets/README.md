@@ -1,7 +1,5 @@
 # Assets
 
-Artwork is grouped by game version, such as `gms-v102/`.
-The GMS v102 book is an unmodified 499 × 370 PNG with transparency.
+[MapleStory](maplestory/) groups original game artwork by category. Each asset's README records its game locale, client version, and WZ archive path. The numbered PNG filenames follow the original frame order.
 
-[Source image](https://maplestory.io/api/wz/img/GMS/102/UI/UIWindow2.img/MonsterBook/backgrnd)
-from MapleStory.IO's archive of the original MapleStory client artwork.
+[Pets](pets/) contains the finished install bundles. Each bundle has a `pet.json` manifest and the final sprite sheet it references.

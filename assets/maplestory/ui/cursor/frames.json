@@ -3,7 +3,7 @@
   "states": {
     "idle": [
       {
-        "file": "0/0.png",
+        "file": "idle/0.png",
         "origin": {
           "x": 0,
           "y": 3
@@ -12,7 +12,7 @@
     ],
     "pointer": [
       {
-        "file": "1/0.png",
+        "file": "pointer/0.png",
         "origin": {
           "x": 3,
           "y": 6
@@ -20,7 +20,7 @@
         "delay": 500
       },
       {
-        "file": "1/1.png",
+        "file": "pointer/1.png",
         "origin": {
           "x": 4,
           "y": 4
@@ -30,7 +30,7 @@
     ],
     "pressed": [
       {
-        "file": "12/0.png",
+        "file": "pressed/0.png",
         "origin": {
           "x": 4,
           "y": 1

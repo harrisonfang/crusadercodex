@@ -5,7 +5,7 @@ const interactive = 'a[href], button, summary, [role="button"], [role="tab"]';
 const nativeCursor = 'input, textarea, [contenteditable], iframe';
 
 async function initializeCursor() {
-  const metadataURL = new URL('./assets/gms-v102/cursor/frames.json', import.meta.url);
+  const metadataURL = new URL('./assets/maplestory/ui/cursor/frames.json', import.meta.url);
   const response = await fetch(metadataURL);
   if (!response.ok) return;
   const { states } = await response.json();

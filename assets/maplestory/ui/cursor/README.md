@@ -1,11 +1,11 @@
 # Cursor
 
-Original PNGs from GMS v102 `UI/Basic.img/Cursor`, with their numbered paths intact.
+Original PNGs from GMS v102 `UI/Basic.img/Cursor`, with the archive frame indices for each state.
 `frames.json` preserves each frame's origin (pointer hotspot) and animation delay.
 
-- `0`: idle glove.
-- `1`: clickable hover, two frames at 500 ms each.
-- `12`: mouse button held down, a single pressed-glove frame.
+- `idle/` comes from WZ state `0`, the idle glove.
+- `pointer/` comes from WZ state `1`, two clickable hover frames at 500 ms each.
+- `pressed/` comes from WZ state `12`, a single frame while the mouse button is held down.
 
 [Original asset archive](https://maplestory.io/api/wz/export/GMS/102/UI/Basic.img/Cursor)
 · [Frame metadata](https://maplestory.io/api/wz/GMS/102/UI/Basic.img/Cursor)
