@@ -6,7 +6,7 @@ rm -rf dist
 mkdir -p dist/assets
 cp web/*.html web/*.css web/*.js dist/
 
-for ui in assets/gms-v102 assets/*/ui; do
+for ui in assets/*/ui; do
   [ -d "$ui" ] || continue
   mkdir -p "dist/${ui%/*}"
   cp -R "$ui" "dist/$ui"
