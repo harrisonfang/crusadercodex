@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fetch lossless MapleStory WZ frame canvases with origins and explicit delays.
 
-Usage: python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch-slime.json
+Usage: python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch_slime.json
 Requires curl; decoding/downloads use only the Python standard library.
 Existing cached HTTP responses are reused unless --refresh is passed.
 """

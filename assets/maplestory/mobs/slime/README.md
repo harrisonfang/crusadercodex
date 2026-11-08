@@ -9,5 +9,5 @@ The five sequences are `stand` (3 frames), `move` (7), `jump` (1), `hit1` (1), a
 From the repository root, run:
 
 ```sh
-python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch-slime.json
+python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch_slime.json
 ```

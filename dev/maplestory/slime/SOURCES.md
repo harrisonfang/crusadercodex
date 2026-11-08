@@ -21,9 +21,9 @@ The description is the first sentence of the English [GMS v83 Monster Book entry
 A fresh checkout contains all the source PNGs and metadata needed to compile the pet offline. To download them again from the archive, run the following commands from the repository root with Python and `curl`:
 
 ```sh
-python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch-slime.json
-python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch-meso.json
-python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch-magic-claw.json
+python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch_slime.json
+python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch_meso.json
+python3 dev/common/fetch_wz_sprites.py dev/maplestory/slime/fetch_magic_claw.json
 ```
 
 Each command updates its directory under `assets/`. It writes the lossless numbered frames and a manifest with the source paths, original WZ properties, placement origins, delays, and PNG checksums. The three configurations share a URL-keyed cache at `dev/maplestory/slime/build/wz-cache/`. Pass `--refresh` to fetch the responses again.

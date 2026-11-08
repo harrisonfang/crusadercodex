@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "runtime_profile": "../../common/timing-profile.json",
+  "runtime_profile": "../../common/timing_profile.json",
   "output": "build",
   "pet": {
     "id": "maplestory-slime",

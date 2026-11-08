@@ -23,7 +23,11 @@ def compiled_animations(directory, states, runtime, scale, anchor, prefix='compi
     """Embed exact built cells without allowing their timed layer samples to be remapped."""
     if not math.isfinite(scale) or scale <= 0:
         raise ValueError('Compiled scale must be positive and finite')
-    report = read_json(directory / 'build-report.json')
+    report_path = directory / "build_report.json"
+    legacy_path = directory / "build-report.json"
+    if not report_path.exists() and legacy_path.exists():
+        report_path = legacy_path  # Comparisons can use output from earlier builds.
+    report = read_json(report_path)
     for key in ('sprite_version', 'cell_width', 'cell_height', 'columns', 'rows'):
         if report['runtime'][key] != runtime[key]:
             raise ValueError(f'Compiled pet and preview runtime disagree on {key}')
@@ -138,7 +142,7 @@ def editable_mapping(row, scale, anchor):
 def write_preview(recipe_path, build_directory=None, comparisons=()):
     recipe = read_json(recipe_path)
     directory = build(recipe_path, build_directory)
-    report = read_json(directory / "build-report.json")
+    report = read_json(directory / "build_report.json")
     runtime = report["runtime"]
     profile = read_json(recipe_path.parent / recipe["runtime_profile"])
     scale = recipe.get("defaults", {}).get("scale", 1)

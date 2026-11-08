@@ -76,7 +76,7 @@ class ClippingTests(unittest.TestCase):
                   dict(self.effect, allow_clipping=True, opacities=[0.5]),
                   {"source": "fixture", "animation": "front", "anchor": [0, 0], "frames": [0]}]
         output = self.run_build(layers)
-        report = json.loads((output / "build-report.json").read_text())
+        report = json.loads((output / "build_report.json").read_text())
         frame = report["rows"][0]["frames"][0]
         self.assertEqual(frame["uncropped"], {"file": "clipping/review-0.png", "size": [5, 5], "cell_offset": [1, 1]})
         self.assertEqual(frame["layers"][1]["clipping"]["lost_pixels"], 5)
@@ -126,7 +126,7 @@ class ClippingTests(unittest.TestCase):
 
     def test_no_clipping_keeps_report_shape_and_artifact_set(self):
         output = self.run_build([dict(self.effect, anchor=[0, 0])])
-        report = json.loads((output / "build-report.json").read_text())
+        report = json.loads((output / "build_report.json").read_text())
         frame = report["rows"][0]["frames"][0]
         self.assertNotIn("uncropped", frame)
         self.assertNotIn("clipping", frame["layers"][0])

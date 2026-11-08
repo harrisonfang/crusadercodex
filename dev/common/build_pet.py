@@ -24,7 +24,7 @@ Layer order is back-to-front. Origins are preserved;
 the scaled WZ origin is placed on the anchor plus that column's offset.
 
 This deliberately uses explicit frame maps: Codex cannot honor source durations.
-Source timing, source hashes, and the final mapping are saved in build-report.json.
+Source timing, source hashes, and the final mapping are saved in build_report.json.
 Every used layer is checked for clipped visible pixels before output is written.
 Unexpected clipping is an error; explicit clipping never permits an empty cell.
 """
@@ -248,7 +248,7 @@ def preview_html(pet: dict, profile: dict, report: dict) -> str:
 <div class="readout"><div class="metric"><label>Current frame</label><strong id="frame">—</strong></div><div class="metric"><label>Frame duration</label><strong id="delay">—</strong></div><div class="metric"><label>Cycle duration</label><strong id="cycle">—</strong></div><div class="metric"><label>Atlas row</label><strong id="row">—</strong></div></div>
 <div class="frame-list" id="frames" aria-label="Animation frame picker"></div><h2>Source layers in this frame</h2><div class="source-map" id="source"></div>
 </section></div>
-<footer><div class="links"><a href="pet.json">Pet manifest</a><a href="spritesheet.png">Transparent atlas</a><a href="build-report.json">Frame mappings &amp; provenance</a></div><p>Codex controls playback timing; the pet manifest does not override it. Original game frame durations and asset provenance are retained in the build report for comparison. An unknown game duration is never guessed.</p></footer>
+<footer><div class="links"><a href="pet.json">Pet manifest</a><a href="spritesheet.png">Transparent atlas</a><a href="build_report.json">Frame mappings &amp; provenance</a></div><p>Codex controls playback timing; the pet manifest does not override it. Original game frame durations and asset provenance are retained in the build report for comparison. An unknown game duration is never guessed.</p></footer>
 </main><script>
 const DATA = """ + data + r""";
 const $=id=>document.getElementById(id), profile=DATA.profile, rows=profile.rows, canvas=$('pet'), ctx=canvas.getContext('2d');
@@ -388,7 +388,7 @@ def build(config_path: Path, output_override: Path | None = None) -> Path:
                        append_images=frames[1:], duration=runtime["delays_ms"], loop=0,
                        disposal=0, blend=0, optimize=False)
     report["output"] = {"atlas": "spritesheet.png", "sha256": digest(atlas_path), "size": list(atlas.size), "mode": atlas.mode, "active_frames": sum(row["frames"] for row in profile["rows"])}
-    for filename, data in (("pet.json", pet), ("build-report.json", report)):
+    for filename, data in (("pet.json", pet), ("build_report.json", report)):
         (output / filename).write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     (output / "preview.html").write_text(preview_html(pet, profile, report), encoding="utf-8")
     with Image.open(atlas_path) as saved:

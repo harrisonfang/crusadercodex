@@ -279,7 +279,7 @@ class CompositionTests(unittest.TestCase):
         config_path = self.path / "config.json"
         config_path.write_text(json.dumps(config))
         output = build(config_path)
-        report = json.loads((output / "build-report.json").read_text())
+        report = json.loads((output / "build_report.json").read_text())
         layers = [frame["layers"][0] for frame in report["rows"][0]["frames"]]
         self.assertEqual([layer["sample_ms"] for layer in layers], [0, 50, 150, 250])
         for layer, time in zip(layers, (0, 50, 150, 250)):
