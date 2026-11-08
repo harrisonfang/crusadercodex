@@ -5,16 +5,21 @@ const interactive = 'a[href], button, summary, [role="button"], [role="tab"]';
 const nativeCursor = 'input, textarea, [contenteditable], iframe';
 
 async function initializeCursor() {
-  const metadataURL = new URL('./assets/maplestory/ui/cursor/frames.json', import.meta.url);
-  const response = await fetch(metadataURL);
-  if (!response.ok) return;
-  const { states } = await response.json();
+  const cursorDirectory = new URL('./assets/maplestory/ui/cursor/', import.meta.url);
+  const states = {
+    idle: [{ file: 'idle/0.png', origin: { x: 0, y: 3 } }],
+    pointer: [
+      { file: 'pointer/0.png', origin: { x: 3, y: 6 }, delay: 500 },
+      { file: 'pointer/1.png', origin: { x: 4, y: 4 }, delay: 500 },
+    ],
+    pressed: [{ file: 'pressed/0.png', origin: { x: 4, y: 1 } }],
+  };
 
   // Decode every frame before changing the pointer, so a missing asset leaves
   // the browser's cursor intact instead of blinking between loaded frames.
   await Promise.all(Object.values(states).flat().map(async (frame) => {
     const image = new Image();
-    image.src = new URL(frame.file, metadataURL).href;
+    image.src = new URL(frame.file, cursorDirectory).href;
     await image.decode();
     frame.cursor = `url("${image.src}") ${frame.origin.x} ${frame.origin.y}, auto`;
   }));
@@ -84,5 +89,5 @@ async function initializeCursor() {
   });
 }
 
-// Keep the native cursor if metadata or images cannot be loaded.
+// Keep the native cursor if an image cannot be loaded.
 initializeCursor().catch(() => {});

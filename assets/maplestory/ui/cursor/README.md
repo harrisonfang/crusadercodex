@@ -1,7 +1,7 @@
 # Cursor
 
 Original PNGs from GMS v102 `UI/Basic.img/Cursor`, with the archive frame indices for each state.
-`frames.json` preserves each frame's origin (pointer hotspot) and animation delay.
+The [website cursor](../../../../web/cursor.js) applies each frame's original hotspot and animation delay.
 
 - `idle/` comes from WZ state `0`, the idle glove.
 - `pointer/` comes from WZ state `1`, two clickable hover frames at 500 ms each.
