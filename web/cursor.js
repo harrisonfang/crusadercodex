@@ -7,7 +7,7 @@ const nativeCursor = 'input, textarea, [contenteditable], iframe';
 async function initializeCursor() {
   const cursorDirectory = new URL('./assets/maplestory/ui/cursor/', import.meta.url);
   const states = {
-    idle: [{ file: 'idle/0.png', origin: { x: 0, y: 3 } }],
+    default: [{ file: 'default/0.png', origin: { x: 0, y: 3 } }],
     pointer: [
       { file: 'pointer/0.png', origin: { x: 3, y: 6 }, delay: 500 },
       { file: 'pointer/1.png', origin: { x: 4, y: 4 }, delay: 500 },
@@ -66,7 +66,7 @@ async function initializeCursor() {
 
     const control = target.closest(interactive);
     const clickable = control && !control.closest('[disabled], [aria-disabled="true"], [inert]');
-    setState(event.buttons & 1 ? 'pressed' : clickable ? 'pointer' : 'idle');
+    setState(event.buttons & 1 ? 'pressed' : clickable ? 'pointer' : 'default');
   }
 
   for (const event of ['pointerover', 'pointermove', 'pointerdown', 'pointerup']) {

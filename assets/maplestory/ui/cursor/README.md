@@ -3,7 +3,7 @@
 Original PNGs from GMS v102 `UI/Basic.img/Cursor`, with the archive frame indices for each state.
 The [website cursor](../../../../web/cursor.js) applies each frame's original hotspot and animation delay.
 
-- `idle/` comes from WZ state `0`, the idle glove.
+- `default/` comes from WZ state `0`, the default glove.
 - `pointer/` comes from WZ state `1`, two clickable hover frames at 500 ms each.
 - `pressed/` comes from WZ state `12`, a single frame while the mouse button is held down.
 
