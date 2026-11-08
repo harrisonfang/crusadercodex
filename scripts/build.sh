@@ -12,7 +12,7 @@ for ui in assets/*/ui; do
   cp -R "$ui" "dist/$ui"
 done
 
-for sheet in assets/pets/*/spritesheet.png assets/pets/*/*/spritesheet.png; do
+for sheet in assets/pets/*/*/spritesheet.png; do
   [ -f "$sheet" ] || continue
   mkdir -p "dist/${sheet%/*}"
   cp "$sheet" "dist/$sheet"
