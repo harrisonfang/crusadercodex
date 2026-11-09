@@ -25,7 +25,7 @@
       "layers": [
         {
           "animation": "stand",
-          "frames": [2, 2, 0, 0, 1, 1]
+          "frames": [2, 0, 0, 1, 1, 1]
         }
       ]
     },
