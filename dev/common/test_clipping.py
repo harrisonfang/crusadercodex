@@ -11,7 +11,7 @@ from pathlib import Path
 from PIL import Image
 
 from build_pet import build, clipping_info, compose_layer
-from build_source_preview import compiled_animations
+from dev.common.preview.source import compiled_animations
 
 
 class ClippingTests(unittest.TestCase):

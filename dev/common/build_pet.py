@@ -30,15 +30,16 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import html
 import json
 import math
 import sys
 from pathlib import Path
 
 if __package__:
+    from .preview.atlas import preview_html
     from .motion import finite_number, frame_start_times, motion_offsets, motion_state
 else:
+    from preview.atlas import preview_html
     from motion import finite_number, frame_start_times, motion_offsets, motion_state
 
 try:
@@ -188,46 +189,6 @@ def compose_layer(layer: dict, selector, offset, sources: dict, cell_size: tuple
     if clipping:
         provenance["clipping"] = clipping
     return sprite, position, provenance
-
-
-def preview_html(pet: dict, profile: dict, report: dict) -> str:
-    data = json.dumps({"pet": pet, "profile": profile, "rows": report["rows"]}, ensure_ascii=False).replace("<", "\\u003c")
-    title = html.escape(pet["displayName"])
-    # Embedded metadata works directly from file://. The atlas remains a regular
-    # adjacent image, so the preview needs no server, network, or third-party JS.
-    return """<!doctype html>
-<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>""" + title + """ — Codex pet preview</title>
-<style>
-:root{font-family:ui-sans-serif,system-ui,sans-serif;color:#163d34;background:#f6f7f1;color-scheme:light;--line:#dce3d8;--muted:#65766a;--surface:#fff}
-*{box-sizing:border-box}body{margin:0;padding:48px 24px 64px}main{max-width:1080px;margin:auto}header{margin-bottom:28px}.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}h1{font-size:38px;letter-spacing:-1.5px;margin:10px 0 12px;font-weight:650}p{line-height:1.6;color:var(--muted);max-width:740px}a{color:inherit;text-underline-offset:3px}.layout{display:grid;grid-template-columns:minmax(300px,1fr) minmax(330px,1fr);gap:24px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px}.stage{display:grid;place-items:center;min-height:390px;border-radius:10px;background-color:#eef1e9;background-image:linear-gradient(45deg,#e6ebdf 25%,transparent 25%),linear-gradient(-45deg,#e6ebdf 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e6ebdf 75%),linear-gradient(-45deg,transparent 75%,#e6ebdf 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}.stage.dark{background:#172a27}.stage.white{background:#fff}canvas{image-rendering:pixelated;max-width:100%;object-fit:contain}label{font-size:12px;color:var(--muted);display:block;margin-bottom:8px}select,button{font:inherit;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:inherit;padding:10px 13px;cursor:pointer}select{width:100%}button:hover{border-color:#779680}button.primary{background:#1c5945;border-color:#1c5945;color:#fff}.controls{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.topline{display:flex;justify-content:space-between;gap:12px;margin:0 0 18px;align-items:center}.tiny{font-size:12px}.readout{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{padding:15px 0;border-top:1px solid var(--line)}.metric strong{display:block;font-size:21px;line-height:1.8;font-variant-numeric:tabular-nums}.frame-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}.frame-list button{font-variant-numeric:tabular-nums;padding:8px;min-width:49px;font-size:12px}.frame-list button[aria-current=true]{border-color:#1c5945;box-shadow:inset 0 0 0 1px #1c5945;background:#eaf3e7}.frame-list small{display:block;color:var(--muted);font-size:10px;margin-top:4px}h2{font-size:15px;margin:22px 0 10px}.source-map{font-size:12px;line-height:1.7;background:#f6f7f1;border-radius:8px;padding:12px;min-height:74px;white-space:pre-wrap}footer{border-top:1px solid var(--line);margin-top:30px;padding-top:18px;font-size:12px;color:var(--muted);line-height:1.8}.error{color:#a52b2b}input{accent-color:#1c5945}.check{display:flex;align-items:center;gap:7px;margin-top:16px}.links{display:flex;gap:16px;flex-wrap:wrap}.legend{margin:0;font-size:12px}@media(max-width:760px){body{padding:28px 16px}.layout{grid-template-columns:1fr}h1{font-size:32px}.stage{min-height:320px}}
-</style>
-<main>
-<header><div class="eyebrow">Original game pixels · Codex pet lab</div><h1>""" + title + """</h1>
-<p>Original game sprites, aligned by their game origins and enlarged with nearest-neighbor scaling. Select a state to inspect the exact frames and durations used by this version of Codex.</p></header>
-<div class="layout"><section class="panel"><div class="topline"><span class="eyebrow">Live atlas playback</span><span class="tiny" id="status">Loading…</span></div>
-<div class="stage" id="stage"><canvas id="pet" width="192" height="208" aria-label="Animated pet preview"></canvas></div>
-<div class="controls"><button id="background">Background: grid</button><button id="size">Display: 192 × 208</button></div><p class="legend">The transparent image is the same atlas used by the pet. Codex normally displays it smaller; use Display to compare.</p></section>
-<section class="panel"><label for="state">Animation state</label><select id="state"></select>
-<div class="controls"><button class="primary" id="play">Pause</button><button id="previous" aria-label="Previous frame">← Frame</button><button id="next" aria-label="Next frame">Frame →</button><button id="restart">Restart</button></div>
-<label class="check"><input type="checkbox" id="runtime" checked> Return to idle after three cycles, as in Codex</label>
-<label class="check"><input type="checkbox" id="reduced"> Reduced motion: hold first frame</label>
-<div class="readout"><div class="metric"><label>Current frame</label><strong id="frame">—</strong></div><div class="metric"><label>Frame duration</label><strong id="delay">—</strong></div><div class="metric"><label>Cycle duration</label><strong id="cycle">—</strong></div><div class="metric"><label>Atlas row</label><strong id="row">—</strong></div></div>
-<div class="frame-list" id="frames" aria-label="Animation frame picker"></div><h2>Source layers in this frame</h2><div class="source-map" id="source"></div>
-</section></div>
-<footer><div class="links"><a href="pet.json">Pet manifest</a><a href="spritesheet.png">Transparent atlas</a><a href="build_report.json">Frame mappings &amp; provenance</a></div><p>Codex controls playback timing; the pet manifest does not override it. Original game frame durations and asset provenance are retained in the build report for comparison. An unknown game duration is never guessed.</p></footer>
-</main><script>
-const DATA = """ + data + r""";
-const $=id=>document.getElementById(id), profile=DATA.profile, rows=profile.rows, canvas=$('pet'), ctx=canvas.getContext('2d');
-canvas.width=profile.cell_width;canvas.height=profile.cell_height;ctx.imageSmoothingEnabled=false;
-let rowIndex=0, frame=0, cycle=0, playing=true, timer=null, ready=false, bg=0, size=0;
-const sheet=new Image(), state=$('state');
-rows.forEach((row,i)=>{const option=document.createElement('option');option.value=i;option.textContent=row.name;state.append(option)});
-function render(){if(!ready)return;const row=rows[rowIndex];ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(sheet,frame*canvas.width,rowIndex*canvas.height,canvas.width,canvas.height,0,0,canvas.width,canvas.height);$('status').textContent=$('reduced').checked?'Reduced motion':playing?'Playing':'Paused';$('frame').textContent=(frame+1)+' / '+row.frames;$('delay').textContent=row.delays_ms[frame]+' ms';$('cycle').textContent=row.delays_ms.reduce((a,b)=>a+b,0)+' ms';$('row').textContent=rowIndex+' · '+row.name;$('play').textContent=playing?'Pause':'Play';$('frames').replaceChildren();row.delays_ms.forEach((delay,i)=>{const button=document.createElement('button');button.innerHTML=(i+1)+'<small>'+delay+' ms</small>';button.setAttribute('aria-current',i===frame?'true':'false');button.onclick=()=>{playing=false;frame=i;refresh()};$('frames').append(button)});const layers=DATA.rows[rowIndex].frames[frame].layers;$('source').textContent=layers.map(layer=>layer.source+' / '+layer.animation+' / '+layer.frame+'\n  '+layer.scale+'×'+(layer.mirror?' · mirrored':'')+' · game delay: '+(layer.source_delay_ms===null?'unknown':layer.source_delay_ms+' ms')).join('\n');}
-function schedule(){clearTimeout(timer);if(!playing||!ready||$('reduced').checked)return;timer=setTimeout(()=>{frame++;if(frame>=rows[rowIndex].frames){frame=0;cycle++;if($('runtime').checked&&rowIndex!==0&&cycle>=3){rowIndex=0;state.value=0;cycle=0}}refresh()},rows[rowIndex].delays_ms[frame])}
-function refresh(){if($('reduced').checked)frame=0;render();$('previous').disabled=$('reduced').checked;$('next').disabled=$('reduced').checked;for(const button of $('frames').children)button.disabled=$('reduced').checked;schedule()}
-state.onchange=()=>{rowIndex=Number(state.value);frame=0;cycle=0;refresh()};$('play').onclick=()=>{playing=!playing;refresh()};$('previous').onclick=()=>{playing=false;frame=(frame+rows[rowIndex].frames-1)%rows[rowIndex].frames;refresh()};$('next').onclick=()=>{playing=false;frame=(frame+1)%rows[rowIndex].frames;refresh()};$('restart').onclick=()=>{frame=0;cycle=0;playing=true;refresh()};$('runtime').onchange=()=>{cycle=0;refresh()};$('reduced').onchange=()=>{frame=0;refresh()};$('background').onclick=()=>{bg=(bg+1)%3;$('stage').className='stage '+['','dark','white'][bg];$('background').textContent='Background: '+['grid','dark','white'][bg]};$('size').onclick=()=>{size=(size+1)%3;const width=[192,112.64,288][size];canvas.style.width=width+'px';canvas.style.height=width*profile.cell_height/profile.cell_width+'px';$('size').textContent='Display: '+['192 × 208','Codex default (~113 px)','288 × 312'][size]};sheet.onload=()=>{ready=true;refresh()};sheet.onerror=()=>{$('status').textContent='Atlas failed to load';$('status').classList.add('error')};sheet.src='spritesheet.png';
-</script></html>"""
 
 
 def build(config_path: Path, output_override: Path | None = None) -> Path:

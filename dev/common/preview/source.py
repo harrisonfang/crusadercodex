@@ -1,5 +1,7 @@
-#!/usr/bin/env python3
-"""Rebuild a pet recipe and write a self-contained, editable animation preview."""
+"""Rebuild a pet recipe and write its editable preview.
+
+Run from the repository root with python -m dev.common.preview.source RECIPE.
+"""
 
 import argparse
 import base64
@@ -13,10 +15,7 @@ from urllib.parse import quote
 
 from PIL import Image
 
-if __package__:
-    from .build_pet import build, read_json
-else:
-    from build_pet import build, read_json
+from dev.common.build_pet import build, read_json
 
 
 def compiled_animations(directory, states, runtime, scale, anchor, prefix='compiled'):
@@ -166,7 +165,7 @@ def write_preview(recipe_path, build_directory=None, comparisons=()):
         },
         "animations": animations, "defaults": defaults, "compiled_defaults": compiled_defaults,
     }
-    template = (Path(__file__).parent / "templates" / "source-preview.html").read_text(encoding="utf-8")
+    template = Path(__file__).with_name("source.html").read_text(encoding="utf-8")
     # A literal '<' in JSON could close the script tag even in a non-executable data block.
     payload = json.dumps(data, separators=(",", ":")).replace("<", r"\u003c")
     title = html.escape(recipe["pet"]["displayName"])

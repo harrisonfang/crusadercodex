@@ -1,5 +1,5 @@
 {
-  "image_root": "../../../assets/maplestory/mobs/slime",
+  "image_root": "../../../../assets/maplestory/mobs/slime",
   "source": {
     "game": "MapleStory",
     "provider": "MapleStory.IO",

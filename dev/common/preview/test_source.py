@@ -1,7 +1,7 @@
 """Check when the editable source preview can represent the built row exactly."""
 import unittest
 
-from build_source_preview import editable_mapping
+from dev.common.preview.source import editable_mapping
 
 
 class PreviewMappingTests(unittest.TestCase):
