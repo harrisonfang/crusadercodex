@@ -5,9 +5,11 @@ The nine right-side tabs select a chapter; its pages remain blank. Use the mouse
 Up/Down arrow keys, Home, or End. Chapter and page state stays in memory.
 Small windows scroll instead of resizing the artwork.
 
-To preview from the repository root:
+The build writes the site to `dist/`. It includes the game UI artwork and each finished pet's `pets/<game>/<pet>/spritesheet.png`.
+
+Run these commands from the repository root to preview the site.
 
 ```sh
-sh scripts/build.sh
+sh web/build.sh
 python3 -m http.server 8000 --directory dist
 ```

@@ -20,7 +20,7 @@ def pixel_digest(image):
 class ShippedPetTest(unittest.TestCase):
     def test_recipes_match_published_pets(self):
         authoring = Path(__file__).resolve().parents[1]
-        published = authoring.parent / "assets" / "pets"
+        published = authoring.parent / "pets"
         manifests = {}
         for path in sorted(published.rglob("pet.json")):
             manifest = json.loads(path.read_text())
