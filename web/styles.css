@@ -31,6 +31,82 @@ body {
   flex: none;
 }
 
+.book-control {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.book-control img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
+}
+
+.home-button {
+  left: -15px;
+  top: 31px;
+  width: 71px;
+  height: 37px;
+}
+
+.back-button {
+  left: 59px;
+  top: -13px;
+  width: 40px;
+  height: 19px;
+}
+
+.book-control .control-hover,
+.book-control .control-selected,
+.book-control .control-pressed,
+.book-control .control-disabled {
+  display: none;
+}
+
+.book-control:hover .control-normal,
+.book-control:active .control-hover,
+.book-control:active .control-normal {
+  display: none;
+}
+
+.book-control:hover .control-hover,
+.book-control:active .control-pressed {
+  display: block;
+}
+
+/* Home has no separate pressed frame in the original assets. */
+.home-button:active .control-hover {
+  display: block;
+}
+
+.book-control[aria-current="location"] .control-normal,
+.book-control[aria-current="location"] .control-hover,
+.book-control:disabled .control-normal,
+.book-control:disabled .control-hover,
+.book-control:disabled .control-pressed {
+  display: none;
+}
+
+.book-control[aria-current="location"] .control-selected,
+.book-control:disabled .control-disabled {
+  display: block;
+}
+
+.book-control:disabled {
+  cursor: default;
+}
+
+.book-control:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
 .chapter-tab {
   position: absolute;
   top: calc(12px + var(--chapter-index) * 30px);

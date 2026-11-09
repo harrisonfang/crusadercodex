@@ -1,14 +1,13 @@
 const book = document.querySelector(".codex-book");
 const tabList = book.querySelector(".chapter-tabs");
 const page = book.querySelector(".book-pages");
+const home = book.querySelector("#book-home");
 
 // Content will use this state when the blank pages are filled in.
-const state = { chapter: 1, page: 1 };
+const state = { view: "home", chapter: 1, page: 1 };
 const tabs = [];
 
-function selectChapter(chapter) {
-  state.chapter = chapter;
-  state.page = 1;
+function renderNavigation() {
   for (const tab of tabs) {
     const selected = Number(tab.dataset.chapter) === state.chapter;
     tab.setAttribute("aria-selected", String(selected));
@@ -17,7 +16,25 @@ function selectChapter(chapter) {
   page.setAttribute("aria-labelledby", `chapter-${state.chapter}`);
   page.dataset.chapter = String(state.chapter);
   page.dataset.page = String(state.page);
+  page.dataset.view = state.view;
 }
+
+function selectChapter(chapter) {
+  state.view = "chapter";
+  state.chapter = chapter;
+  state.page = 1;
+  renderNavigation();
+}
+
+home.addEventListener("click", () => {
+  state.view = "home";
+  state.chapter = 1;
+  state.page = 1;
+  renderNavigation();
+});
+
+// The game disables Back on list views. It will become available when the
+// website has a detail view to leave; chapter browsing does not create history.
 
 for (let index = 0; index < 9; index += 1) {
   const chapter = index + 1;
@@ -62,4 +79,4 @@ for (let index = 0; index < 9; index += 1) {
   tabList.append(tab);
 }
 
-selectChapter(state.chapter);
+renderNavigation();
