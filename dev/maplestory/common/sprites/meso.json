@@ -1,5 +1,5 @@
 {
-  "image_root": "../../../assets/maplestory/items/meso",
+  "image_root": "../../../../assets/maplestory/items/meso",
   "source": {
     "game": "MapleStory",
     "provider": "MapleStory.IO",

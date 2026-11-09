@@ -1,5 +1,5 @@
 {
-  "image_root": "../../../assets/maplestory/skills/magic-claw",
+  "image_root": "../../../../assets/maplestory/skills/magic-claw",
   "source": {
     "game": "MapleStory",
     "provider": "MapleStory.IO",

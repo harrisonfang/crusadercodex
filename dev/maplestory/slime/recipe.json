@@ -10,9 +10,9 @@
     "spritesheetPath": "spritesheet.png"
   },
   "sources": {
-    "slime": "../sources/slime.json",
-    "meso": "../sources/meso.json",
-    "magic_claw": "../sources/magic_claw.json"
+    "slime": "../common/sprites/slime.json",
+    "meso": "../common/sprites/meso.json",
+    "magic_claw": "../common/sprites/magic_claw.json"
   },
   "defaults": {
     "source": "slime",
