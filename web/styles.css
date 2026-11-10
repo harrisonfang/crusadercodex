@@ -1,6 +1,7 @@
 :root {
   color-scheme: dark;
   background: #24272b;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -118,7 +119,6 @@ body {
   border: 0;
   background: none;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .chapter-tab img {
