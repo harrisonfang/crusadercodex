@@ -32,8 +32,27 @@ body {
   flex: none;
 }
 
+/* Both page-info sprites include more artwork below the left-page banner. */
+.book-title {
+  position: absolute;
+  left: 68px;
+  top: 26px;
+  width: 171px;
+  height: 28px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.book-title img {
+  position: absolute;
+  top: 0;
+  left: -9px;
+  image-rendering: pixelated;
+}
+
 .book-control {
   position: absolute;
+  z-index: 1;
   padding: 0;
   border: 0;
   background: none;
@@ -49,11 +68,23 @@ body {
   user-select: none;
 }
 
-.home-button {
+.bookmark {
   left: -15px;
-  top: 31px;
+  width: 57px;
+  height: 35px;
+}
+
+.bookmark[aria-current="location"] {
   width: 71px;
   height: 37px;
+}
+
+.home-button {
+  top: 31px;
+}
+
+.set-button {
+  top: 71px;
 }
 
 .back-button {
@@ -81,8 +112,8 @@ body {
   display: block;
 }
 
-/* Home has no separate pressed frame in the original assets. */
-.home-button:active .control-hover {
+/* Neither bookmark has a separate pressed frame in the original assets. */
+.bookmark:active .control-hover {
   display: block;
 }
 

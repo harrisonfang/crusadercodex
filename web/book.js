@@ -2,19 +2,31 @@ const book = document.querySelector(".codex-book");
 const tabList = book.querySelector(".chapter-tabs");
 const page = book.querySelector(".book-pages");
 const home = book.querySelector("#book-home");
+const set = book.querySelector("#book-set");
+const homeTitle = book.querySelector("#home-title");
+const setTitle = book.querySelector("#set-title");
 
 // Content will use this state when the blank pages are filled in.
 const state = { view: "home", chapter: 1, page: 1 };
 const tabs = [];
 
 function renderNavigation() {
+  const showingSets = state.view === "set";
+  home.setAttribute("aria-current", showingSets ? "false" : "location");
+  set.setAttribute("aria-current", showingSets ? "location" : "false");
+  homeTitle.hidden = showingSets;
+  setTitle.hidden = !showingSets;
+  tabList.hidden = showingSets;
+
   for (const tab of tabs) {
-    const selected = Number(tab.dataset.chapter) === state.chapter;
+    const selected = !showingSets && Number(tab.dataset.chapter) === state.chapter;
     tab.setAttribute("aria-selected", String(selected));
     tab.tabIndex = selected ? 0 : -1;
   }
-  page.setAttribute("aria-labelledby", `chapter-${state.chapter}`);
-  page.dataset.chapter = String(state.chapter);
+  page.setAttribute("role", showingSets ? "region" : "tabpanel");
+  page.setAttribute("aria-labelledby", showingSets ? "set-title" : `chapter-${state.chapter}`);
+  if (showingSets) delete page.dataset.chapter;
+  else page.dataset.chapter = String(state.chapter);
   page.dataset.page = String(state.page);
   page.dataset.view = state.view;
 }
@@ -26,12 +38,15 @@ function selectChapter(chapter) {
   renderNavigation();
 }
 
-home.addEventListener("click", () => {
-  state.view = "home";
+function openSection(view) {
+  state.view = view;
   state.chapter = 1;
   state.page = 1;
   renderNavigation();
-});
+}
+
+home.addEventListener("click", () => openSection("home"));
+set.addEventListener("click", () => openSection("set"));
 
 // The game disables Back on list views. It will become available when the
 // website has a detail view to leave; chapter browsing does not create history.

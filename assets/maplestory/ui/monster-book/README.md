@@ -7,6 +7,9 @@ The open book, chapter tabs and buttons come from Global MapleStory v102, under 
 | `background.png` | `backgrnd` |
 | `right-tabs/<index>/<state>/<frame>.png` | `RightTab/<index>/<state>/<frame>` |
 | `left-tabs/home/<state>/<frame>.png` | `LeftTab/0/<state>/<frame>` |
+| `left-tabs/set/<state>/<frame>.png` | `LeftTab/1/<state>/<frame>` |
+| `page-info/book-info-0.png` | `pageInfo/bookInfo0` |
+| `page-info/set-info-0.png` | `pageInfo/setInfo0` |
 | `back/<state>/<frame>.png` | `UpTab/<state>/<frame>` |
 
 The repository calls the WZ state `mouseOver` **hover**. Other state names and all frame indices follow the archive. The background is a transparent 499 × 370 PNG. The chapter tabs use indices 0 through 8, displayed as chapters 1 through 9. [Original background](https://maplestory.io/api/wz/img/GMS/102/UI/UIWindow2.img/MonsterBook/backgrnd)
