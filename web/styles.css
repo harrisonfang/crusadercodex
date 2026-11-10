@@ -1,6 +1,7 @@
 :root {
   color-scheme: dark;
   background: #24272b;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -31,6 +32,113 @@ body {
   flex: none;
 }
 
+/* Both page-info sprites include more artwork below the left-page banner. */
+.book-title {
+  position: absolute;
+  left: 68px;
+  top: 26px;
+  width: 171px;
+  height: 28px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.book-title img {
+  position: absolute;
+  top: 0;
+  left: -9px;
+  image-rendering: pixelated;
+}
+
+.book-control {
+  position: absolute;
+  z-index: 1;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.book-control img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
+}
+
+.bookmark {
+  left: -15px;
+  width: 57px;
+  height: 35px;
+}
+
+.bookmark[aria-current="location"] {
+  width: 71px;
+  height: 37px;
+}
+
+.home-button {
+  top: 31px;
+}
+
+.set-button {
+  top: 71px;
+}
+
+.back-button {
+  left: 59px;
+  top: -13px;
+  width: 40px;
+  height: 19px;
+}
+
+.book-control .control-hover,
+.book-control .control-selected,
+.book-control .control-pressed,
+.book-control .control-disabled {
+  display: none;
+}
+
+.book-control:hover .control-normal,
+.book-control:active .control-hover,
+.book-control:active .control-normal {
+  display: none;
+}
+
+.book-control:hover .control-hover,
+.book-control:active .control-pressed {
+  display: block;
+}
+
+/* Neither bookmark has a separate pressed frame in the original assets. */
+.bookmark:active .control-hover {
+  display: block;
+}
+
+.book-control[aria-current="location"] .control-normal,
+.book-control[aria-current="location"] .control-hover,
+.book-control:disabled .control-normal,
+.book-control:disabled .control-hover,
+.book-control:disabled .control-pressed {
+  display: none;
+}
+
+.book-control[aria-current="location"] .control-selected,
+.book-control:disabled .control-disabled {
+  display: block;
+}
+
+.book-control:disabled {
+  cursor: default;
+}
+
+.book-control:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
 .chapter-tab {
   position: absolute;
   top: calc(12px + var(--chapter-index) * 30px);
@@ -42,7 +150,6 @@ body {
   border: 0;
   background: none;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .chapter-tab img {

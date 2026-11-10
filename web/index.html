@@ -17,8 +17,28 @@
           src="./assets/maplestory/ui/monster-book/background.png"
           width="499"
           height="370"
-          alt="An open Crusader Codex with two empty pages."
+          alt=""
           fetchpriority="high">
+        <h1 class="book-title">
+          <img id="home-title" src="./assets/maplestory/ui/monster-book/page-info/book-info-0.png" alt="Crusader Codex">
+          <img id="set-title" src="./assets/maplestory/ui/monster-book/page-info/set-info-0.png" alt="Set List" hidden>
+        </h1>
+        <button class="book-control bookmark home-button" id="book-home" type="button" aria-label="Home" aria-controls="book-pages" aria-current="location">
+          <img class="control-normal" src="./assets/maplestory/ui/monster-book/left-tabs/home/normal/0.png" width="57" height="35" alt="" draggable="false">
+          <img class="control-hover" src="./assets/maplestory/ui/monster-book/left-tabs/home/hover/0.png" width="57" height="35" alt="" draggable="false">
+          <img class="control-selected" src="./assets/maplestory/ui/monster-book/left-tabs/home/selected/0.png" width="71" height="37" alt="" draggable="false">
+        </button>
+        <button class="book-control bookmark set-button" id="book-set" type="button" aria-label="Set" aria-controls="book-pages">
+          <img class="control-normal" src="./assets/maplestory/ui/monster-book/left-tabs/set/normal/0.png" width="57" height="35" alt="" draggable="false">
+          <img class="control-hover" src="./assets/maplestory/ui/monster-book/left-tabs/set/hover/0.png" width="57" height="35" alt="" draggable="false">
+          <img class="control-selected" src="./assets/maplestory/ui/monster-book/left-tabs/set/selected/0.png" width="71" height="37" alt="" draggable="false">
+        </button>
+        <button class="book-control back-button" id="book-back" type="button" aria-label="Back" aria-controls="book-pages" disabled>
+          <img class="control-normal" src="./assets/maplestory/ui/monster-book/back/normal/0.png" width="40" height="19" alt="" draggable="false">
+          <img class="control-hover" src="./assets/maplestory/ui/monster-book/back/hover/0.png" width="40" height="19" alt="" draggable="false">
+          <img class="control-pressed" src="./assets/maplestory/ui/monster-book/back/pressed/0.png" width="40" height="19" alt="" draggable="false">
+          <img class="control-disabled" src="./assets/maplestory/ui/monster-book/back/disabled/0.png" width="40" height="19" alt="" draggable="false">
+        </button>
         <div class="chapter-tabs" role="tablist" aria-label="Book chapters" aria-orientation="vertical"></div>
         <section class="book-pages" id="book-pages" role="tabpanel" tabindex="0"></section>
       </div>
