@@ -5,6 +5,12 @@ The nine right-side tabs select a chapter; its pages remain blank. Use the mouse
 Up/Down arrow keys, Home, or End. Chapter and page state stays in memory.
 Small windows scroll instead of resizing the artwork.
 
+## Gallery design
+
+The [gallery design and screen flow](design/README.md) describe how visitors browse chapters, find a pet, and reach its animation preview. Start there for design decisions, proposals under discussion, and the game references behind them.
+
+## Local preview
+
 The build writes the site to `dist/`. It includes the game UI artwork and each finished pet's `pets/<game>/<pet>/spritesheet.png`.
 
 Run these commands from the repository root to preview the site.
@@ -13,5 +19,3 @@ Run these commands from the repository root to preview the site.
 sh web/build.sh
 python3 -m http.server 8000 --directory dist
 ```
-
-See [Crusader Codex navigation](codex-behavior.md) for the original game's bookmarks, cards and Sets, and which behaviors the pet gallery keeps.
