@@ -12,6 +12,6 @@ The open book, chapter tabs and buttons come from Global MapleStory v102, under 
 | `page-info/set-info-0.png` | `pageInfo/setInfo0` |
 | `back/<state>/<frame>.png` | `UpTab/<state>/<frame>` |
 
-The gallery displays [Crusader Codex](banners/crusader-codex.png) and [Set List](banners/set-list.png) using 171 × 28 pixel crops. Each crop starts at (9, 0) in its full overlay, measured from the top left. The source images are [book-info-0.png](page-info/book-info-0.png) and [set-info-0.png](page-info/set-info-0.png), respectively.
+The [Crusader Codex](page-info/book-info-0-banner.png) and [Set List](page-info/set-info-0-banner.png) banners sit beside their source overlays in `page-info/` with a `-banner` suffix. Each is a 171 × 28 pixel crop starting at (9, 0) from the top left of its source.
 
 The repository calls the WZ state `mouseOver` **hover**. Other state names and all frame indices follow the archive. The background is a transparent 499 × 370 PNG. The chapter tabs use indices 0 through 8, displayed as chapters 1 through 9. [Original background](https://maplestory.io/api/wz/img/GMS/102/UI/UIWindow2.img/MonsterBook/backgrnd)
