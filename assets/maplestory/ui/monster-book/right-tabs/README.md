@@ -1,7 +1,7 @@
 # Right-side tabs
 
 Unmodified GMS v102 PNGs from `UI/UIWindow2.img/MonsterBook/RightTab`.
-Tab indices and frame numbers follow the archive. The local `hover` state maps to `mouseOver`.
+Tab indices follow the archive. Each state uses frame `0`, and the local `hover.png` maps to `mouseOver/0`.
 The normal and hover images have identical pixels in this version.
 
 Relative to the 499 × 370 book, normal/hover images start at (477, 12 + 30 × index)
