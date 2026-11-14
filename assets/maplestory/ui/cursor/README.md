@@ -3,9 +3,9 @@
 Original PNGs from GMS v102 `UI/Basic.img/Cursor`, with the archive frame indices for each state.
 The [website cursor](../../../../web/cursor.js) applies each frame's original hotspot and animation delay.
 
-- `default/` comes from WZ state `0`, the default glove.
-- `pointer/` comes from WZ state `1`, two clickable hover frames at 500 ms each.
-- `pressed/` comes from WZ state `12`, a single frame while the mouse button is held down.
+- `default.png` comes from WZ frame `0/0`, the default glove.
+- `pointer-0.png` and `pointer-1.png` come from WZ frames `1/0` and `1/1`, the clickable hover animation at 500 ms per frame.
+- `pressed.png` comes from WZ frame `12/0`, shown while the mouse button is held down.
 
 [Original asset archive](https://maplestory.io/api/wz/export/GMS/102/UI/Basic.img/Cursor)
 · [Frame metadata](https://maplestory.io/api/wz/GMS/102/UI/Basic.img/Cursor)

@@ -15,7 +15,7 @@
       "frames": [
         {
           "index": 0,
-          "file": "bronze/0.png",
+          "file": "bronze-0.png",
           "width": 23,
           "height": 24,
           "origin": {
@@ -37,7 +37,7 @@
         },
         {
           "index": 1,
-          "file": "bronze/1.png",
+          "file": "bronze-1.png",
           "width": 25,
           "height": 24,
           "origin": {
@@ -59,7 +59,7 @@
         },
         {
           "index": 2,
-          "file": "bronze/2.png",
+          "file": "bronze-2.png",
           "width": 23,
           "height": 24,
           "origin": {
@@ -81,7 +81,7 @@
         },
         {
           "index": 3,
-          "file": "bronze/3.png",
+          "file": "bronze-3.png",
           "width": 5,
           "height": 24,
           "origin": {

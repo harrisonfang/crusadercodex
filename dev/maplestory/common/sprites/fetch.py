@@ -40,7 +40,7 @@ def main():
         return parsed
 
     def frame(job):
-        name, source, index = job
+        name, source, index, frame_count = job
         path = source + "/" + str(index)
         node = fetch(path)
         if node["type"] != 12:
@@ -53,10 +53,10 @@ def main():
         origin = props.get("origin")
         if not isinstance(origin, dict) or not {"x", "y"} <= origin.keys():
             raise ValueError(f"{path}: explicit origin required")
-        target = out / name / f"{index}.png"
+        filename = f"{name}-{index}.png" if frame_count > 1 else f"{name}.png"
         delay = props.get("delay")
         return name, png, {
-            "index": index, "file": target.relative_to(out).as_posix(),
+            "index": index, "file": filename,
             "width": width, "height": height,
             "origin": {"x": origin["x"], "y": origin["y"]},
             "delay_ms": int(delay) if delay is not None else None,
@@ -72,7 +72,7 @@ def main():
         if not ids:
             raise ValueError(f"{path}: no numbered frames")
         animations[name] = {"wz_path": path, "frames": []}
-        jobs.extend((name, path, index) for index in ids)
+        jobs.extend((name, path, index, len(ids)) for index in ids)
     with ThreadPoolExecutor(max_workers=4) as pool:
         frames = list(pool.map(frame, jobs))
     # Finish the archive requests before updating the shared source files.

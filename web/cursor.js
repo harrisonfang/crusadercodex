@@ -7,12 +7,12 @@ const nativeCursor = 'input, textarea, [contenteditable], iframe';
 async function initializeCursor() {
   const cursorDirectory = new URL('./assets/maplestory/ui/cursor/', import.meta.url);
   const states = {
-    default: [{ file: 'default/0.png', origin: { x: 0, y: 3 } }],
+    default: [{ file: 'default.png', origin: { x: 0, y: 3 } }],
     pointer: [
-      { file: 'pointer/0.png', origin: { x: 3, y: 6 }, delay: 500 },
-      { file: 'pointer/1.png', origin: { x: 4, y: 4 }, delay: 500 },
+      { file: 'pointer-0.png', origin: { x: 3, y: 6 }, delay: 500 },
+      { file: 'pointer-1.png', origin: { x: 4, y: 4 }, delay: 500 },
     ],
-    pressed: [{ file: 'pressed/0.png', origin: { x: 4, y: 1 } }],
+    pressed: [{ file: 'pressed.png', origin: { x: 4, y: 1 } }],
   };
 
   // Decode every frame before changing the pointer, so a missing asset leaves

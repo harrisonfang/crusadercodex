@@ -69,7 +69,7 @@ for (let index = 0; index < 9; index += 1) {
     ["selected", "tab-selected"],
   ]) {
     const image = document.createElement("img");
-    image.src = `./assets/maplestory/ui/monster-book/right-tabs/${index}/${assetState}/0.png`;
+    image.src = `./assets/maplestory/ui/monster-book/right-tabs/${index}/${assetState}.png`;
     image.className = className;
     image.width = assetState === "selected" ? 28 : 22;
     image.height = 31;

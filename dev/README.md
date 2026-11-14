@@ -43,7 +43,7 @@ Run the MapleStory fetcher from the repository root with Python, `curl`, and net
 python3 dev/maplestory/common/sprites/fetch.py dev/maplestory/common/sprites/meso.json
 ```
 
-The fetcher resolves `image_root` relative to the manifest. It writes each numbered PNG under that root and fills in frame records in the same manifest. Each frame’s `file` is relative to `image_root`, so `bronze/0.png` resolves to `assets/maplestory/items/meso/bronze/0.png`. The records include original WZ origins, delays, dimensions, and PNG checksums. An absent game delay stays `null`. The fetcher caches archive responses in `dev/maplestory/common/sprites/build/wz-cache/`. Pass `--refresh` to retrieve fresh responses. Record the game version and archive URL in the asset’s README. [Populated meso manifest](maplestory/common/sprites/meso.json)
+The fetcher resolves `image_root` relative to the manifest and writes the PNGs directly in that directory. A single frame takes the animation name (`jump.png`). Multiple frames use the animation name and original WZ frame index (`bronze-0.png`, `bronze-1.png`, and so on). Each frame’s `file` is relative to `image_root`. The records include original WZ origins, delays, dimensions, and PNG checksums. An absent game delay stays `null`. The fetcher caches archive responses in `dev/maplestory/common/sprites/build/wz-cache/`. Pass `--refresh` to retrieve fresh responses. Record the game version and archive URL in the asset’s README. [Populated meso manifest](maplestory/common/sprites/meso.json)
 
 ## Start another pet
 

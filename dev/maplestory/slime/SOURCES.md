@@ -12,9 +12,9 @@ The archive ZIPs encode the WZ path as a flat, hyphenated filename. The source d
 
 | ZIP member | Source PNG in this repository |
 | --- | --- |
-| `Mob-0210100.img-stand-0.png` | [maplestory/mobs/slime/stand/0.png](../../../assets/maplestory/mobs/slime/stand/0.png) |
-| `Item-Special-0900.img-09000000-iconRaw-0.png` | [maplestory/items/meso/bronze/0.png](../../../assets/maplestory/items/meso/bronze/0.png) |
-| `Skill-200.img-skill-2001005-hit-0-0.png` | [maplestory/skills/magic-claw/hit/0.png](../../../assets/maplestory/skills/magic-claw/hit/0.png) |
+| `Mob-0210100.img-stand-0.png` | [maplestory/mobs/slime/stand-0.png](../../../assets/maplestory/mobs/slime/stand-0.png) |
+| `Item-Special-0900.img-09000000-iconRaw-0.png` | [maplestory/items/meso/bronze-0.png](../../../assets/maplestory/items/meso/bronze-0.png) |
+| `Skill-200.img-skill-2001005-hit-0-0.png` | [maplestory/skills/magic-claw/hit-0.png](../../../assets/maplestory/skills/magic-claw/hit-0.png) |
 
 The description is the first sentence of the English [GMS v83 Monster Book entry](https://maplestory.io/api/wz/GMS/83/String/MonsterBook.img/210100/episode).
 
@@ -26,4 +26,4 @@ python3 dev/maplestory/common/sprites/fetch.py dev/maplestory/common/sprites/mes
 python3 dev/maplestory/common/sprites/fetch.py dev/maplestory/common/sprites/magic_claw.json
 ```
 
-Each command reads the archive paths from its manifest, writes the original numbered PNGs under `assets/maplestory/`, and updates that same manifest with frame origins, delays, WZ properties, and PNG checksums. All three use a URL-keyed cache at `dev/maplestory/common/sprites/build/wz-cache/`. Pass `--refresh` to download the archive responses again.
+Each command reads the archive paths from its manifest, writes the original PNGs under `assets/maplestory/`, and updates that same manifest with frame origins, delays, WZ properties, and PNG checksums. All three use a URL-keyed cache at `dev/maplestory/common/sprites/build/wz-cache/`. Pass `--refresh` to download the archive responses again.

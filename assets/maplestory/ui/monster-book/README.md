@@ -5,13 +5,11 @@ The open book, chapter tabs and buttons come from Global MapleStory v102, under 
 | Repository path | Original WZ path under MonsterBook |
 | --- | --- |
 | `background.png` | `backgrnd` |
-| `right-tabs/<index>/<state>/<frame>.png` | `RightTab/<index>/<state>/<frame>` |
-| `left-tabs/home/<state>/<frame>.png` | `LeftTab/0/<state>/<frame>` |
-| `left-tabs/set/<state>/<frame>.png` | `LeftTab/1/<state>/<frame>` |
-| `page-info/book-info-0.png` | `pageInfo/bookInfo0` |
-| `page-info/set-info-0.png` | `pageInfo/setInfo0` |
-| `back/<state>/<frame>.png` | `UpTab/<state>/<frame>` |
+| `right-tabs/<index>/<state>.png` | `RightTab/<index>/<state>/0` |
+| `left-tabs/home/<state>.png` | `LeftTab/0/<state>/0` |
+| `left-tabs/set/<state>.png` | `LeftTab/1/<state>/0` |
+| `back/<state>.png` | `UpTab/<state>/0` |
 
-The [Crusader Codex](page-info/book-info-0-banner.png) and [Set List](page-info/set-info-0-banner.png) banners sit beside their source overlays in `page-info/` with a `-banner` suffix. Each is a 171 × 28 pixel crop starting at (9, 0) from the top left of its source.
+These PNGs are unchanged exports. The local state `hover` maps to `mouseOver` in the archive. The background is a transparent 499 × 370 PNG. The chapter tabs use indices 0 through 8, displayed as chapters 1 through 9. [Original background](https://maplestory.io/api/wz/img/GMS/102/UI/UIWindow2.img/MonsterBook/backgrnd)
 
-The repository calls the WZ state `mouseOver` **hover**. Other state names and all frame indices follow the archive. The background is a transparent 499 × 370 PNG. The chapter tabs use indices 0 through 8, displayed as chapters 1 through 9. [Original background](https://maplestory.io/api/wz/img/GMS/102/UI/UIWindow2.img/MonsterBook/backgrnd)
+See [page-info/](page-info/) for the Home and Set overlays, the title banners cropped from them, and their original WZ names.

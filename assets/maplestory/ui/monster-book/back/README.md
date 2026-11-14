@@ -1,7 +1,7 @@
 # Back button
 
 Unmodified GMS v102 Back button PNGs from
-`UI/UIWindow2.img/MonsterBook/UpTab`, including `normal`, `pressed`, `disabled` and `mouseOver` (stored under `hover`).
+`UI/UIWindow2.img/MonsterBook/UpTab`, including `normal`, `pressed`, `disabled` and `mouseOver` (saved as `hover.png`).
 
 The button starts at book-relative (59, -13). All 418 visible opaque pixels of
 the disabled frame match the [released-v102 screenshot](https://mapleglobalnews.wordpress.com/2011/10/28/gms-v-102-rise-of-fellowship/).
