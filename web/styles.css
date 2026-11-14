@@ -32,21 +32,12 @@ body {
   flex: none;
 }
 
-/* Both page-info sprites include more artwork below the left-page banner. */
 .book-title {
   position: absolute;
   left: 68px;
   top: 26px;
-  width: 171px;
-  height: 28px;
+  display: flex;
   margin: 0;
-  overflow: hidden;
-}
-
-.book-title img {
-  position: absolute;
-  top: 0;
-  left: -9px;
   image-rendering: pixelated;
 }
 
