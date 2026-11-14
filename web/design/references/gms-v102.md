@@ -15,7 +15,7 @@ The [launch guide][guide] describes the eight numbered bookmarks as shortcuts to
 
 Treat these as a guide to the colors, not a formula for individual v102 cards. For example, the [green Mummy Dog card][mummy] points to a [monster record](https://maplestory.io/api/wz/GMS/102/Item/Consume/0238.img/02383005/info/mob) whose [v102 level is 32](https://maplestory.io/api/wz/GMS/102/Mob/4230126.img/info/level).
 
-The ninth bookmark has a [skull](../../../assets/maplestory/ui/monster-book/right-tabs/8/normal/0.png) in place of a number. It is for **Master Monsters and bosses**. According to the [v100 release notes][notes], it appears after the player picks up their first card from that group.
+The ninth bookmark has a [skull](https://maplestory.io/api/wz/img/GMS/102/UI/UIWindow2.img/MonsterBook/RightTab/8/normal/0) in place of a number. It is for **Master Monsters and bosses**. According to the [v100 release notes][notes], it appears after the player picks up their first card from that group.
 
 **A missing bookmark and a gray portrait mean different things.** A [level-10 Jett](https://www.youtube.com/watch?v=b1LbOydoJwQ&t=199s) has just the red bookmark, but can browse gray portraits among its 36 entries. A [level-200 test-server character](https://www.youtube.com/watch?v=9W59sS9-ilU&t=8s) has all nine bookmarks with only two cards collected. This is consistent with the numbered chapters opening as the character levels; the exact unlock rule is unverified. Within an available chapter, a gray portrait means the player hasn't picked up that card. It still opens to the monster’s name, picture and location. Collecting one copy colors the portrait and reveals information such as stats and drops. [Launch notes][notes]
 
